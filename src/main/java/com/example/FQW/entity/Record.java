@@ -1,20 +1,24 @@
 package com.example.FQW.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-
-import java.sql.Time;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "record", schema = "public")
 public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
-    @Column(name = "time")
-    private Time time;
+    @Column(name = "daily")
+    private String daily;
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

@@ -1,10 +1,19 @@
 package com.example.FQW.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "master", schema = "public")
 public class Master {
     @Id
@@ -19,4 +28,25 @@ public class Master {
     private String patronymic;
     @Column(name = "level")
     private Integer level;
+    @OneToMany(mappedBy = "master", fetch = FetchType.EAGER)
+    private List<Record> records = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "service_master",
+            joinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id"))
+    private List<Service> services = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "master_place",
+            joinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "place_id", referencedColumnName = "id"))
+    private List<Place> places = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "master_calendar",
+            joinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "calendar_id", referencedColumnName = "id"))
+    private List<Calendar> calendars = new ArrayList<>();
+
 }
