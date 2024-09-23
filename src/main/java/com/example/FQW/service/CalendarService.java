@@ -19,8 +19,4 @@ public class CalendarService {
     private ServiceRepository serviceRepository;
     private PlaceRepository placeRepository;
 
-
-    void test() {
-
-    }
 }
