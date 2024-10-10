@@ -19,5 +19,4 @@ public class ClientService {
     private ServiceRepository serviceRepository;
     private PlaceRepository placeRepository;
 
-
 }
