@@ -35,7 +35,7 @@ public class Master {
 
     @Column(name = "active")
     private Boolean active;
-
+  
     @OneToMany(mappedBy = "master", fetch = FetchType.EAGER)
     private List<Record> records = new ArrayList<>();
 
@@ -47,14 +47,17 @@ public class Master {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "master_place",
+
             joinColumns = @JoinColumn(name = "place_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id"))
+
     private List<Place> places = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "master_calendar",
             joinColumns = @JoinColumn(name = "calendar_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id"))
+
     private List<Calendar> calendars = new ArrayList<>();
 
 }

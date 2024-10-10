@@ -37,7 +37,7 @@ public class Calendar {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "master_calendar",
             joinColumns = @JoinColumn(name = "calendar_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id"))
+            inverseJoinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id")
     private List<Master> masters = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)

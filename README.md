@@ -1,2 +1,2 @@
 # FQW
-Final qualifying work. Interface for managing a network of beauty salons
+Final qualifying work. Interface for managing a network of animal care salons
