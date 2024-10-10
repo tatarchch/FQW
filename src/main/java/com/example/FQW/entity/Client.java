@@ -14,20 +14,25 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "client", schema = "public")
+@Table(name = "client", schema = "prod")
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "surname")
     private String surname;
+
     @Column(name = "patronymic")
     private String patronymic;
+
     @Column(name = "phone_number", unique = true)
     private String phoneNumber;
+
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Record> records = new ArrayList<>();
 }
