@@ -22,28 +22,17 @@ public class Calendar {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "date")
+    @Column(name = "date", unique = true, nullable = false)
     private LocalDate date;
 
     @OneToMany(mappedBy = "calendar", fetch = FetchType.EAGER)
     private List<Record> records = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "place_calendar",
-            joinColumns = @JoinColumn(name = "calendar_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "place_id", referencedColumnName = "id"))
-    private List<Place> places = new ArrayList<>();
-
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "master_calendar",
             joinColumns = @JoinColumn(name = "calendar_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id")
+            inverseJoinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id"))
     private List<Master> masters = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "service_calendar",
-            joinColumns = @JoinColumn(name = "calendar_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id"))
-    private List<Service> services = new ArrayList<>();
 
 }
