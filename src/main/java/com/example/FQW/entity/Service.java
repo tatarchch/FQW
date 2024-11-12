@@ -21,34 +21,20 @@ public class Service {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "cost")
+    @Column(name = "cost", nullable = false)
     private Integer cost;
+
+    @Column(name = "level")
+    private Integer level;
 
     @Column(name = "active")
     private Boolean active;
 
-    @OneToMany(mappedBy = "service", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "service", fetch = FetchType.LAZY)
     private List<Record> records = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "place_service",
-            joinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "place_id", referencedColumnName = "id"))
-    private List<Place> places = new ArrayList<>();
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "service_master",
-            joinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id"))
-    private List<Master> masters = new ArrayList<>();
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "service_calendar",
-            joinColumns = @JoinColumn(name = "service_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "calendar_id", referencedColumnName = "id"))
-    private List<Calendar> calendars = new ArrayList<>();
 
 }
