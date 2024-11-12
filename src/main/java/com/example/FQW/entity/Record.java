@@ -1,10 +1,10 @@
 package com.example.FQW.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.lang.annotation.Target;
 
 @Entity
 @Getter
@@ -20,6 +20,9 @@ public class Record {
 
     @Column(name = "daily")
     private String daily;
+
+    @Column(name = "status")
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
