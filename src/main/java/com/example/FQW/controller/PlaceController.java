@@ -2,12 +2,10 @@ package com.example.FQW.controller;
 
 
 import com.example.FQW.dto.PlaceDto;
+import com.example.FQW.dto.PreOrderDto;
 import com.example.FQW.service.PlaceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,14 +21,20 @@ public class PlaceController {
         return placeService.getAll();
     }
 
-    @GetMapping("/getById")
-    public PlaceDto getById(Long id) {
-        return placeService.getById(id);
+    @PostMapping("/pickPlace/{placeId}")
+    public PreOrderDto pickPlace(@PathVariable("placeId") Long placeId, @RequestBody PreOrderDto preOrderDto){
+        return placeService.pickPlace(placeId, preOrderDto);
     }
 
-    @PostMapping("/addNewPlace")
+    /*@PostMapping("/addNewPlace")
     public PlaceDto addNewPlace(PlaceDto placeDto) {
         return placeService.addNew(placeDto);
-    }
+    }*/
+
+    /*@GetMapping("/getById/{id}")
+    public PlaceDto getById(@PathVariable("id") Long id) {
+        return placeService.getById(id);
+    }*/
+
 
 }

@@ -1,4 +1,4 @@
-package com.example.FQW.response.exception.PlaceException;
+package com.example.FQW.exception.PlaceException;
 
 public class PlaceAlreadyExistsException extends RuntimeException {
 

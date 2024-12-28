@@ -2,12 +2,14 @@ package com.example.FQW.service;
 
 import com.example.FQW.dto.PreOrderDto;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Service
+@Slf4j
 @Getter
 public class PreOrderService {
 
@@ -18,35 +20,27 @@ public class PreOrderService {
         PreOrderDto preOrderDto = new PreOrderDto();
         preOrderDto.setClientId(clientId);
         preOrderDto.setCorrelationId(correlationId);
-        preOrderMap.put(correlationId, preOrderDto);
         return preOrderDto;
     }
 
-    public PreOrderDto callPlace(Long placeId, String correlationId) {
-        PreOrderDto preOrderDto = preOrderMap.get(correlationId);
+
+    public PreOrderDto callPlace(Long placeId, PreOrderDto preOrderDto) {
         preOrderDto.setPlaceId(placeId);
-        preOrderMap.put(correlationId ,preOrderDto);
         return preOrderDto;
     }
 
-    public PreOrderDto callMaster(Long masterId, String correlationId) {
-        PreOrderDto preOrderDto = preOrderMap.get(correlationId);
+    public PreOrderDto callMaster(Long masterId, PreOrderDto preOrderDto) {
         preOrderDto.setMasterId(masterId);
-        preOrderMap.put(correlationId ,preOrderDto);
         return preOrderDto;
     }
 
-    public PreOrderDto callService(Long serviceId, String correlationId) {
-        PreOrderDto preOrderDto = preOrderMap.get(correlationId);
+    public PreOrderDto callService(Long serviceId, PreOrderDto preOrderDto) {
         preOrderDto.setServiceId(serviceId);
-        preOrderMap.put(correlationId ,preOrderDto);
         return preOrderDto;
     }
 
-    public PreOrderDto callCalendar(Long calendarId, String correlationId) {
-        PreOrderDto preOrderDto = preOrderMap.get(correlationId);
+    public PreOrderDto callCalendar(Long calendarId, PreOrderDto preOrderDto) {
         preOrderDto.setCalendarId(calendarId);
-        preOrderMap.put(correlationId ,preOrderDto);
         return preOrderDto;
     }
 
