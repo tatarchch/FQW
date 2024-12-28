@@ -1,4 +1,4 @@
-package com.example.FQW.response.exception.ServiceException;
+package com.example.FQW.exception.ServiceException;
 
 public class ServiceNotFoundException extends RuntimeException {
     public ServiceNotFoundException() {

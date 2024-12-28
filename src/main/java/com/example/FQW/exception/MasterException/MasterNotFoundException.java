@@ -1,4 +1,4 @@
-package com.example.FQW.response.exception.MasterException;
+package com.example.FQW.exception.MasterException;
 
 public class MasterNotFoundException extends RuntimeException {
 
