@@ -13,4 +13,6 @@ public interface ServiceRepository extends JpaRepository<Service,Long> {
     /*default List<PlaceDto> getPlaceDtos(){
         return
     };*/
+
+    List<Service> findAllByLevelLessThanEqual(Integer level);
 }

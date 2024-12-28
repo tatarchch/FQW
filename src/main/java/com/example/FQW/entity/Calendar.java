@@ -34,5 +34,4 @@ public class Calendar {
             inverseJoinColumns = @JoinColumn(name = "master_id", referencedColumnName = "id"))
     private List<Master> masters = new ArrayList<>();
 
-
 }

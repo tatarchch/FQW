@@ -5,17 +5,19 @@ import com.example.FQW.dto.PreOrderDto;
 import com.example.FQW.entity.Client;
 import com.example.FQW.mapper.ClientMapper;
 import com.example.FQW.repositories.ClientRepository;
-import com.example.FQW.response.exception.ClientException.ClientAlreadyExistsException;
-import com.example.FQW.response.exception.ClientException.ClientNotFoundException;
+import com.example.FQW.exception.ClientException.ClientAlreadyExistsException;
+import com.example.FQW.exception.ClientException.ClientNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 @Getter
 @Setter
 @AllArgsConstructor

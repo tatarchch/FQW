@@ -1,25 +1,31 @@
 package com.example.FQW.service;
 
 import com.example.FQW.dto.PreOrderDto;
+import com.example.FQW.dto.RecordDto;
 import com.example.FQW.entity.Record;
+import com.example.FQW.mapper.RecordMapper;
 import com.example.FQW.repositories.RecordRepository;
-import com.example.FQW.response.exception.OtherException;
-import com.example.FQW.response.exception.RecordException.RecordException;
+import com.example.FQW.exception.RecordException.OtherException;
+import com.example.FQW.exception.RecordException.RecordException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 @Setter
 @Getter
 @AllArgsConstructor
 public class RecordService {
 
     private final RecordRepository recordRepository;
+
+    private final RecordMapper recordMapper;
 
     private final ClientService clientService;
     private final CalendarService calendarService;
@@ -30,33 +36,42 @@ public class RecordService {
     private final PreOrderService preOrderService;
 
 
-    public List<Record> getAll() {
-        return recordRepository.findAll();
+    public List<RecordDto> getAll() {
+        return recordRepository.findAll().stream()
+                .map(recordMapper::toDTO)
+                .toList();
     }
 
-    public Record getById(Long id) {
-        return recordRepository.findById(id).orElseThrow(RecordException::new);
+    public RecordDto getById(Long id) {
+        return recordRepository.findById(id)
+                .map(recordMapper::toDTO)
+                .orElseThrow(RecordException::new);
     }
 
-    public Record createRecord(PreOrderDto preOrderDto) {
+    //?
+    public RecordDto createRecord(PreOrderDto preOrderDto) {
         return Optional.of(new Record())
                 .map(record -> fillRecord(record, preOrderDto))
                 .map(recordRepository::save)
-                .orElseThrow(OtherException::new);
-    }
-
-    public Record cancelRecordById(Long id) {
-        return recordRepository.findById(id)
-                .map(this::fillCanceledRecord)
-                .map(recordRepository::save)
+                .map(recordMapper::toDTO)
                 .orElseThrow(OtherException::new);
     }
 
 
-    public Record doneRecordById(Long id) {
+    public RecordDto cancelRecordById(Long id) {
         return recordRepository.findById(id)
                 .map(this::fillCanceledRecord)
                 .map(recordRepository::save)
+                .map(recordMapper::toDTO)
+                .orElseThrow(OtherException::new);
+    }
+
+
+    public RecordDto doneRecordById(Long id) {
+        return recordRepository.findById(id)
+                .map(this::fillCanceledRecord)
+                .map(recordRepository::save)
+                .map(recordMapper::toDTO)
                 .orElseThrow(OtherException::new);
     }
 
@@ -65,6 +80,7 @@ public class RecordService {
         return record;
 
     }
+
     private Record fillCanceledRecord(Record record) {
         record.setStatus("отменён");
         return record;
@@ -76,8 +92,8 @@ public class RecordService {
     }
 
     private Record fillClient(Record record, Long clientId) {
-       record.setClient(clientService.getClientById(clientId));
-       return record;
+        record.setClient(clientService.getClientById(clientId));
+        return record;
     }
 
     private Record fillCalendar(Record record, Long calendarId) {
@@ -100,7 +116,7 @@ public class RecordService {
         return record;
     }
 
-    private Record fillRecord(Record record, PreOrderDto preOrderDto){
+    private Record fillRecord(Record record, PreOrderDto preOrderDto) {
         fillClient(record, preOrderDto.getClientId());
         fillCalendar(record, preOrderDto.getCalendarId());
         fillMaster(record, preOrderDto.getMasterId());

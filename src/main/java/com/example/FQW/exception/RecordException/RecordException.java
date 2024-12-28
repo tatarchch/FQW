@@ -1,4 +1,4 @@
-package com.example.FQW.response.exception.RecordException;
+package com.example.FQW.exception.RecordException;
 
 public class RecordException extends RuntimeException{
     public RecordException() {

@@ -1,4 +1,4 @@
-package com.example.FQW.response;
+package com.example.FQW.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

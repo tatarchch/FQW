@@ -1,4 +1,4 @@
-package com.example.FQW.response.exception.ClientException;
+package com.example.FQW.exception.ClientException;
 
 public class ClientNotFoundException extends RuntimeException {
 

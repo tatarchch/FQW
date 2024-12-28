@@ -2,6 +2,7 @@ package com.example.FQW.controller;
 
 
 import com.example.FQW.dto.MasterDto;
+import com.example.FQW.dto.PreOrderDto;
 import com.example.FQW.service.MasterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +21,29 @@ public class MasterController {
         return masterService.getAll();
     }
 
-    @GetMapping("/masterById/{masterId}")
-    public MasterDto getMasterById(@PathVariable("masterId") Long masterID) {
-        return masterService.getById(masterID);
+    @GetMapping("/getMastersByPlaceId/{placeId}")
+    public List<MasterDto> getMastersByPlaceId(@PathVariable("placeId") Long placeId) {
+        return masterService.getMastersByPlaceId(placeId);
     }
 
-    @PostMapping("/addNewMaster")
+    @GetMapping("/getMastersByPlaceIdAndServiceLevel/{placeId}/{serviceId}")
+    public List<MasterDto> getMastersByPlaceIdAndServiceLevel(@PathVariable("placeId") Long placeId, @PathVariable("serviceId") Long serviceId) {
+        return masterService.getMastersByPlaceIdAndServiceId(placeId, serviceId);
+    }
+
+    @PostMapping("/pickMaster/{masterId}")
+    public PreOrderDto pickMaster(@PathVariable("masterId") Long masterId, @RequestBody PreOrderDto preOrderDto) {
+        return masterService.pickMaster(masterId, preOrderDto);
+    }
+
+    /*@PostMapping("/addNewMaster")
     public MasterDto addNewMaster(MasterDto masterDto) {
         return masterService.addNew(masterDto);
-    }
+    }*/
+
+    /*@GetMapping("/masterById/{masterId}")
+    public MasterDto getMasterById(@PathVariable("masterId") Long masterID) {
+        return masterService.getById(masterID);
+    }*/
 
 }

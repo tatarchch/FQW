@@ -1,4 +1,4 @@
-package com.example.FQW.response.exception.CalendarException;
+package com.example.FQW.exception.CalendarException;
 
 public class CalendarNotFoundDateException extends RuntimeException {
 
