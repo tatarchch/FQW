@@ -19,11 +19,11 @@ insert into prod.service (name, cost, level, active) values
 ('grooming', 300, 1, true),
 ('privivka', 500, 2,  true);
 
-insert into prod.record (calendar_id, client_id, daily, master_id, service_id) values
-(1, 1, '9.00-10.00', 1, 1),
-(2, 1, '9.00-10.00', 1, 1),
-(1, 2, '10.00-11.00', 2, 2),
-(1, 1, '9.00-10.00', 3, 1);
+insert into prod.record (calendar_id, client_id, daily, master_id, service_id, place_id) values
+(1, 1, '9.00-10.00', 1, 1, 1),
+(2, 1, '9.00-10.00', 1, 1, 1),
+(1, 2, '10.00-11.00', 2, 2, 2),
+(1, 1, '9.00-10.00', 3, 1, 1);
 
 insert into prod.master_calendar (master_id, calendar_id) values
 (1, 1), (1, 2), (2, 1), (2, 2), (3, 1), (3, 2);

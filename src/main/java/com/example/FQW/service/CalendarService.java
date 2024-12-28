@@ -4,17 +4,21 @@ import com.example.FQW.dto.CalendarDto;
 import com.example.FQW.entity.Calendar;
 import com.example.FQW.mapper.CalendarMapper;
 import com.example.FQW.repositories.CalendarRepository;
-import com.example.FQW.response.exception.CalendarException.CalendarNotFoundDateException;
-import com.example.FQW.response.exception.CalendarException.CalendarNotFoundIdException;
+import com.example.FQW.exception.CalendarException.CalendarNotFoundDateException;
+import com.example.FQW.exception.CalendarException.CalendarNotFoundIdException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
 @Getter
 @Setter
 @AllArgsConstructor
@@ -53,10 +57,16 @@ public class CalendarService {
                 .orElseThrow(CalendarNotFoundIdException::new));
     }
 
-
-
     public Calendar getCalendarById(Long id) {
         return calendarRepository.findById(id).orElseThrow(CalendarNotFoundIdException::new);
+    }
+
+    @Scheduled(/*cron = "0 1 1 * * ?"*/ /*cron = "@daily"*/ fixedDelay = 2000)
+    private void addDay() {
+        /*var today = new Calendar();
+        today.setDate(LocalDate.now());
+        calendarRepository.save(today);
+        log.trace("День создан");*/
     }
 
 }

@@ -1,20 +1,23 @@
 package com.example.FQW.service;
 
 import com.example.FQW.dto.PlaceDto;
+import com.example.FQW.dto.PreOrderDto;
 import com.example.FQW.entity.Place;
 import com.example.FQW.mapper.PlaceMapper;
 import com.example.FQW.repositories.PlaceRepository;
-import com.example.FQW.response.exception.PlaceException.PlaceAlreadyExistsException;
-import com.example.FQW.response.exception.PlaceException.PlaceNotFoundException;
+import com.example.FQW.exception.PlaceException.PlaceAlreadyExistsException;
+import com.example.FQW.exception.PlaceException.PlaceNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
 @Getter
 @Setter
 @AllArgsConstructor
@@ -46,10 +49,13 @@ public class PlaceService {
                 .orElseThrow(PlaceAlreadyExistsException::new);
     }
 
-
     public Place getPlaceById(Long id) {
         return placeRepository.findById(id)
                 .orElseThrow(PlaceNotFoundException::new);
+    }
+
+    public PreOrderDto pickPlace(Long placeId, PreOrderDto preOrderDto) {
+        return preOrderService.callPlace(placeId, preOrderDto);
     }
 
 }

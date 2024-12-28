@@ -8,8 +8,6 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface PlaceMapper {
 
-    //PlaceMapper INSTANCE = Mappers.getMapper( PlaceMapper.class );
-
     PlaceDto toDTO(Place place);
 
     Place toEntity(PlaceDto placeDto);
