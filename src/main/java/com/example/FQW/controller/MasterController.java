@@ -31,10 +31,10 @@ public class MasterController {
         return masterService.getMastersByPlaceIdAndServiceId(placeId, serviceId);
     }
 
-    @PostMapping("/pickMaster/{masterId}")
+    /*@PostMapping("/pickMaster/{masterId}")
     public PreOrderDto pickMaster(@PathVariable("masterId") Long masterId, @RequestBody PreOrderDto preOrderDto) {
         return masterService.pickMaster(masterId, preOrderDto);
-    }
+    }*/
 
     /*@PostMapping("/addNewMaster")
     public MasterDto addNewMaster(MasterDto masterDto) {

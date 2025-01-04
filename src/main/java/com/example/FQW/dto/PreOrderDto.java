@@ -5,8 +5,6 @@ import lombok.Data;
 @Data
 public class PreOrderDto {
 
-    private String correlationId;
-
     private Long clientId;
 
     private Long calendarId;

@@ -1,8 +1,8 @@
 package com.example.FQW.controller;
 
 
+import com.example.FQW.dto.PreOrderDto;
 import com.example.FQW.dto.RecordDto;
-import com.example.FQW.mapper.RecordMapper;
 import com.example.FQW.service.RecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +19,11 @@ public class RecordController {
     @GetMapping("/records")
     public List<RecordDto> getAllRecord() {
         return recordService.getAll();
+    }
+
+    @PostMapping("/add")
+    public RecordDto addRecord(@RequestBody PreOrderDto preOrderDto) {
+        return recordService.addRecord(preOrderDto);
     }
 
     /*@GetMapping("/recordById/{recordId}")

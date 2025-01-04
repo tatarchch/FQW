@@ -1,6 +1,5 @@
 package com.example.FQW.service;
 
-import com.example.FQW.dto.PreOrderDto;
 import com.example.FQW.dto.ServiceDto;
 import com.example.FQW.entity.Master;
 import com.example.FQW.exception.ServiceException.ServiceNotFoundException;
@@ -29,7 +28,6 @@ public class ServiceService {
 
     private final MasterRepository masterRepository;
 
-    private final PreOrderService preOrderService;
 
     public List<ServiceDto> getAll() {
         return serviceRepository.findAll().stream()
@@ -58,8 +56,8 @@ public class ServiceService {
                 .orElseThrow(ServiceNotFoundException::new);
     }
 
-    public PreOrderDto pickService(Long serviceId, PreOrderDto preOrderDto) {
+    /*public PreOrderDto pickService(Long serviceId, PreOrderDto preOrderDto) {
         return preOrderService.callService(serviceId, preOrderDto);
-    }
+    }*/
 
 }

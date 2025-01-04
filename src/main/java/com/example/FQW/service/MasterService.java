@@ -31,8 +31,6 @@ public class MasterService {
 
     private final MasterMapper masterMapper;
 
-    private final PreOrderService preOrderService;
-
     private final PlaceRepository placeRepository;
 
     private final ServiceRepository serviceRepository;
@@ -79,9 +77,9 @@ public class MasterService {
                 .orElseThrow(MasterNotFoundException::new);
     }
 
-    public PreOrderDto pickMaster(Long masterId, PreOrderDto preOrderDto) {
+    /*public PreOrderDto pickMaster(Long masterId, PreOrderDto preOrderDto) {
         return preOrderService.callMaster(masterId, preOrderDto);
-    }
+    }*/
 
     public List<MasterDto> getMastersByPlaceIdAndServiceId(Long placeId, Long serviceId) {
         //mastersWithPlace

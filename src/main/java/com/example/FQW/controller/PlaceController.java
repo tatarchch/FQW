@@ -21,10 +21,10 @@ public class PlaceController {
         return placeService.getAll();
     }
 
-    @PostMapping("/pickPlace/{placeId}")
+    /*@PostMapping("/pickPlace/{placeId}")
     public PreOrderDto pickPlace(@PathVariable("placeId") Long placeId, @RequestBody PreOrderDto preOrderDto){
         return placeService.pickPlace(placeId, preOrderDto);
-    }
+    }*/
 
     /*@PostMapping("/addNewPlace")
     public PlaceDto addNewPlace(PlaceDto placeDto) {

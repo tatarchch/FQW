@@ -17,12 +17,12 @@ public class ClientController {
     private final ClientService clientService;
 
     @GetMapping("/login")
-    public PreOrderDto login(@RequestParam("login") String login, @RequestParam("password") String password) {
-        return clientService.login(login, password);
+    public ClientDto login(@RequestParam("login") String login, @RequestParam("password") String password) {
+        return clientService.getClientByLoginAndPassword(login, password);
     }
 
     @PostMapping("/registration")
-    public PreOrderDto registration(ClientDto clientDto) {
+    public ClientDto registration(ClientDto clientDto) {
         return clientService.registration(clientDto);
     }
 
