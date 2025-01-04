@@ -1,9 +1,9 @@
 insert into prod.calendar (date) values
 ('2024-10-12'), ('2024-10-13');
 
-insert into prod.client (name, patronymic, surname, login, password) values
-('Viktor', 'Ivanovich', 'Soh', 'soh', '123'),
-('Nikita', 'Ivanovich', 'Suman', 'suman', '098');
+insert into prod.client (name, patronymic, surname, login, password, email) values
+('Viktor', 'Ivanovich', 'Soh', 'soh', '123', 'soh123@mail.ru'),
+('Nikita', 'Ivanovich', 'Suman', 'suman', '098', 'suman098@mail.ru');
 
 insert into prod.place (name, address, active) values
 ('Dom zhivotnih', 'Pravdi 24', true),

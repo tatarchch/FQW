@@ -14,6 +14,8 @@ public interface MasterRepository extends JpaRepository<Master, Long> {
 
     List<Master> findAllByLevelGreaterThanEqual(Integer level);
 
+    List<Master> findAllByIdIn(List<Long> mastersId);
+
 
 
 }

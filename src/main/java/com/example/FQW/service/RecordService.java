@@ -3,10 +3,10 @@ package com.example.FQW.service;
 import com.example.FQW.dto.PreOrderDto;
 import com.example.FQW.dto.RecordDto;
 import com.example.FQW.entity.Record;
-import com.example.FQW.mapper.RecordMapper;
-import com.example.FQW.repositories.RecordRepository;
 import com.example.FQW.exception.RecordException.OtherException;
 import com.example.FQW.exception.RecordException.RecordException;
+import com.example.FQW.mapper.RecordMapper;
+import com.example.FQW.repositories.RecordRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,8 +33,6 @@ public class RecordService {
     private final PlaceService placeService;
     private final ServiceService serviceService;
 
-    private final PreOrderService preOrderService;
-
 
     public List<RecordDto> getAll() {
         return recordRepository.findAll().stream()
@@ -49,7 +47,7 @@ public class RecordService {
     }
 
     //?
-    public RecordDto createRecord(PreOrderDto preOrderDto) {
+    public RecordDto addRecord(PreOrderDto preOrderDto) {
         return Optional.of(new Record())
                 .map(record -> fillRecord(record, preOrderDto))
                 .map(recordRepository::save)
@@ -78,7 +76,6 @@ public class RecordService {
     private Record fillCreatedRecord(Record record) {
         record.setStatus("создан");
         return record;
-
     }
 
     private Record fillCanceledRecord(Record record) {

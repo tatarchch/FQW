@@ -36,6 +36,9 @@ public class Client {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "email", nullable = false)
+    private String email;
+
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Record> records = new ArrayList<>();
 
