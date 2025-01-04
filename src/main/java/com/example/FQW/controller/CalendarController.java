@@ -3,6 +3,7 @@ package com.example.FQW.controller;
 
 import com.example.FQW.dto.CalendarDto;
 import com.example.FQW.service.CalendarService;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,9 +32,14 @@ public class CalendarController {
         calendarService.deleteCalendarById(calendarId);
     }
 
-    @PostMapping("/calendarDeleteByDate/{calendarDate}")
+    @DeleteMapping("/{calendarDate}")
     public void deleteCalendarById(@PathVariable("calendarDate") Date calendarDate) {
         calendarService.deleteCalendarByDate(calendarDate);
+    }
+
+    @PostMapping("/add/{calendarId}")
+    public CalendarDto addCalendar(@RequestBody List<Long> mastersId, @PathVariable("calendarId") Long calendarId) {
+        return calendarService.addCalendar(mastersId, calendarId);
     }
 
 }

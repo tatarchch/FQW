@@ -9,7 +9,8 @@ create table prod.client (
     surname varchar(30) not null,
     patronymic varchar(25),
     login varchar(20) unique not null,
-    password varchar(32) not null
+    password varchar(32) not null,
+    email varchar(35) not null
 );
 
 create table prod.place (

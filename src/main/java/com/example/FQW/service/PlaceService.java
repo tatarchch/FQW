@@ -1,12 +1,11 @@
 package com.example.FQW.service;
 
 import com.example.FQW.dto.PlaceDto;
-import com.example.FQW.dto.PreOrderDto;
 import com.example.FQW.entity.Place;
-import com.example.FQW.mapper.PlaceMapper;
-import com.example.FQW.repositories.PlaceRepository;
 import com.example.FQW.exception.PlaceException.PlaceAlreadyExistsException;
 import com.example.FQW.exception.PlaceException.PlaceNotFoundException;
+import com.example.FQW.mapper.PlaceMapper;
+import com.example.FQW.repositories.PlaceRepository;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,8 +25,6 @@ public class PlaceService {
     private final PlaceRepository placeRepository;
 
     private final PlaceMapper placeMapper;
-
-    private final PreOrderService preOrderService;
 
     public List<PlaceDto> getAll() {
         return placeRepository.findAll().stream()
@@ -54,8 +51,8 @@ public class PlaceService {
                 .orElseThrow(PlaceNotFoundException::new);
     }
 
-    public PreOrderDto pickPlace(Long placeId, PreOrderDto preOrderDto) {
+    /*public PreOrderDto pickPlace(Long placeId, PreOrderDto preOrderDto) {
         return preOrderService.callPlace(placeId, preOrderDto);
-    }
+    }*/
 
 }

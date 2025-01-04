@@ -26,10 +26,10 @@ public class ServiceController {
         return serviceService.getServicesByMasterId(masterLevel);
     }
 
-    @PostMapping("/pickService/{serviceId}")
+    /*@PostMapping("/pickService/{serviceId}")
     public PreOrderDto pickService(@PathVariable("serviceId") Long serviceId, @RequestBody PreOrderDto preOrderDto) {
         return serviceService.pickService(serviceId, preOrderDto);
-    }
+    }*/
 
     /* @GetMapping("/serviceById/{serviceId}")
     public ServiceDto getServiceById(@PathVariable("serviceId") Long serviceId) {
