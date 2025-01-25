@@ -5,12 +5,10 @@ create table prod.calendar (
 
 create table prod.client (
     id bigint primary key not null default(nextval('prod.client_seq')),
-    name varchar(20) not null,
-    surname varchar(30) not null,
-    patronymic varchar(25),
+    name varchar(50),
     login varchar(20) unique not null,
     password varchar(32) not null,
-    email varchar(35) not null
+    email varchar(35) unique
 );
 
 create table prod.place (
@@ -22,8 +20,7 @@ create table prod.place (
 
 create table prod.master (
     id bigint primary key not null default(nextval('prod.master_seq')),
-    name varchar(20) not null,
-    surname varchar(30) not null,
+    name varchar(50) not null,
     patronymic varchar(25),
     level int,
     place_id bigint references prod.place(id),
@@ -41,13 +38,12 @@ create table prod.service (
 
 create table prod.record (
     id bigint primary key not null default(nextval('prod.record_seq')),
-    daily varchar(20),
+    timing varchar(20),
     status varchar(20),
+    date date,
     client_id bigint references prod.client(id),
-    place_id bigint references prod.place(id),
     service_id bigint references prod.service(id),
-    master_id bigint references prod.master(id),
-    calendar_id bigint references prod.calendar(id)
+    master_id bigint references prod.master(id)
 );
 
 create table prod.master_calendar (
