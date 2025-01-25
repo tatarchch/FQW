@@ -21,14 +21,14 @@ public class Client {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "surname", nullable = false)
-    private String surname;
+    /*@Column(name = "surname")
+    private String surname;*/
 
-    @Column(name = "patronymic")
-    private String patronymic;
+    /*@Column(name = "patronymic")
+    private String patronymic;*/
 
     @Column(name = "login", unique = true, nullable = false)
     private String login;
@@ -36,7 +36,7 @@ public class Client {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", unique = true)
     private String email;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)

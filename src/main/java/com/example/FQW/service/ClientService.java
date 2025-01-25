@@ -6,20 +6,14 @@ import com.example.FQW.exception.ClientException.ClientAlreadyExistsException;
 import com.example.FQW.exception.ClientException.ClientNotFoundException;
 import com.example.FQW.mapper.ClientMapper;
 import com.example.FQW.repositories.ClientRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Slf4j
-@Getter
-@Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ClientService {
 
     private final ClientRepository clientRepository;
@@ -37,6 +31,7 @@ public class ClientService {
                 .map(clientMapper::toDTO)
                 .orElseThrow(ClientNotFoundException::new);
     }
+
 
     public ClientDto getClientByLogin(String login) {
         return clientRepository.findClientByLogin(login)
@@ -75,5 +70,17 @@ public class ClientService {
     public Client getClientById(Long id) {
         return clientRepository.findById(id)
                 .orElseThrow(ClientNotFoundException::new);
+    }
+
+
+    public ClientDto botLogin(String userName) {
+        return clientRepository.findClientByLoginAndPassword(userName, userName)
+                .map(clientMapper::toDTO)
+                .orElseGet(() -> {
+                    Client client = new Client();
+                    client.setLogin(userName);
+                    client.setPassword(userName);
+                    return clientMapper.toDTO(clientRepository.save(client));
+                });
     }
 }
