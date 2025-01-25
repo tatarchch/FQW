@@ -24,8 +24,8 @@ public class Master {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "surname", nullable = false)
-    private String surname;
+    /*@Column(name = "surname", nullable = false)
+    private String surname;*/
 
     @Column(name = "patronymic")
     private String patronymic;
@@ -42,6 +42,5 @@ public class Master {
   
     @OneToMany(mappedBy = "master", fetch = FetchType.EAGER)
     private List<Record> records = new ArrayList<>();
-
 
 }

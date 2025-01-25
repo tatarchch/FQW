@@ -1,10 +1,12 @@
 package com.example.FQW.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.lang.annotation.Target;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -18,8 +20,11 @@ public class Record {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "daily")
-    private String daily;
+    @Column(name = "timing")
+    private String timing;
+
+    @Column(name = "date")
+    private LocalDate date;
 
     @Column(name = "status")
     private String status;
@@ -28,9 +33,9 @@ public class Record {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "place_id")
-    private Place place;
+    private Place place;*/
 
     @ManyToOne
     @JoinColumn(name = "service_id")
@@ -40,8 +45,5 @@ public class Record {
     @JoinColumn(name = "master_id")
     private Master master;
 
-    @ManyToOne
-    @JoinColumn(name = "calendar_id")
-    private Calendar calendar;
 
 }

@@ -11,11 +11,13 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface RecordMapper {
 
+    @Mapping(target = "client", source = "clientDto")
+    @Mapping(target = "service", source = "serviceDto")
+    @Mapping(target = "master", source = "masterDto")
+    @Mapping(target = "status", constant = "created")
     Record toEntity(RecordDto recordDto);
 
     @Mapping(target = "clientDto", source = "record.client", qualifiedByName = "clientToDto")
-    @Mapping(target = "calendarDto", source = "record.calendar", qualifiedByName = "calendarToDto")
-    @Mapping(target = "placeDto", source = "record.place", qualifiedByName = "placeToDto")
     @Mapping(target = "serviceDto", source = "record.service", qualifiedByName = "serviceToDto")
     @Mapping(target = "masterDto", source = "record.master", qualifiedByName = "masterToDto")
     RecordDto toDTO(Record record);
@@ -23,11 +25,6 @@ public interface RecordMapper {
     @Named("clientToDto")
     default ClientDto clientToDto(Client client) {
         return Mappers.getMapper(ClientMapper.class).toDTO(client);
-    }
-
-    @Named("calendarToDto")
-    default CalendarDto calendarToDto(Calendar calendar) {
-        return Mappers.getMapper(CalendarMapper.class).toDTO(calendar);
     }
 
     @Named("placeToDto")
