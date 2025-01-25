@@ -1,12 +1,12 @@
 package com.example.FQW.controller;
 
 
-import com.example.FQW.dto.PreOrderDto;
 import com.example.FQW.dto.RecordDto;
 import com.example.FQW.service.RecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -22,9 +22,20 @@ public class RecordController {
     }
 
     @PostMapping("/add")
-    public RecordDto addRecord(@RequestBody PreOrderDto preOrderDto) {
-        return recordService.addRecord(preOrderDto);
+    public RecordDto addRecord(@RequestBody RecordDto recordDto) {
+        return recordService.addRecord(recordDto);
     }
+
+    @PostMapping("/confirm")
+    public RecordDto confirmRecord(@RequestBody RecordDto recordDto) {
+        return recordService.confirm(recordDto);
+    }
+
+    @PostMapping("/getDailyByMasterAndDate/{masterId}")
+    public List<String> getDailyByMasterAndDate(@PathVariable("masterId") Long masterId, LocalDate date) {
+        return recordService.getDailyByMasterAndDate(masterId, date);
+    }
+
 
     /*@GetMapping("/recordById/{recordId}")
     public RecordDto getAllRecord(@PathVariable("recordId") Long recordId) {

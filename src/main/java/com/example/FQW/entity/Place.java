@@ -33,8 +33,8 @@ public class Place {
     @OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
     private List<Master> masters = new ArrayList<>();
 
-    @OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
-    private List<Record> records = new ArrayList<>();
+    /*@OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
+    private List<Record> records = new ArrayList<>();*/
 
 
 }

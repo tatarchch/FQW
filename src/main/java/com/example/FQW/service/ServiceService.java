@@ -6,20 +6,14 @@ import com.example.FQW.exception.ServiceException.ServiceNotFoundException;
 import com.example.FQW.mapper.ServiceMapper;
 import com.example.FQW.repositories.MasterRepository;
 import com.example.FQW.repositories.ServiceRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
 @Service
-@Slf4j
-@Setter
-@Getter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ServiceService {
 
     private final ServiceRepository serviceRepository;
@@ -53,6 +47,12 @@ public class ServiceService {
                 .map(services -> services.stream()
                         .map(serviceMapper::toDTO)
                         .toList())
+                .orElseThrow(ServiceNotFoundException::new);
+    }
+
+    public ServiceDto getServiceByName(String name) {
+        return serviceRepository.findServiceByName(name)
+                .map(serviceMapper::toDTO)
                 .orElseThrow(ServiceNotFoundException::new);
     }
 

@@ -1,7 +1,6 @@
 package com.example.FQW.service;
 
 import com.example.FQW.dto.MasterDto;
-import com.example.FQW.dto.PreOrderDto;
 import com.example.FQW.entity.Master;
 import com.example.FQW.exception.MasterException.MasterAlreadyExistsException;
 import com.example.FQW.exception.MasterException.MasterNotFoundException;
@@ -11,20 +10,14 @@ import com.example.FQW.mapper.MasterMapper;
 import com.example.FQW.repositories.MasterRepository;
 import com.example.FQW.repositories.PlaceRepository;
 import com.example.FQW.repositories.ServiceRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Slf4j
-@Getter
-@Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class MasterService {
 
     private final MasterRepository masterRepository;
@@ -77,10 +70,6 @@ public class MasterService {
                 .orElseThrow(MasterNotFoundException::new);
     }
 
-    /*public PreOrderDto pickMaster(Long masterId, PreOrderDto preOrderDto) {
-        return preOrderService.callMaster(masterId, preOrderDto);
-    }*/
-
     public List<MasterDto> getMastersByPlaceIdAndServiceId(Long placeId, Long serviceId) {
         //mastersWithPlace
         return placeRepository.findById(placeId)
@@ -96,6 +85,12 @@ public class MasterService {
                         .toList())
                 .orElseThrow(PlaceNotFoundException::new);
 
+    }
+
+    public MasterDto getMasterByName(String name) {
+        return masterRepository.findMasterByName(name)
+                .map(masterMapper::toDTO)
+                .orElseThrow(MasterNotFoundException::new);
     }
 
     /*public List<MasterDto> getMastersByPlaceIdAndServiceId(Long placeId, Long serviceId) {

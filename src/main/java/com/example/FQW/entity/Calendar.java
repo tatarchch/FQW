@@ -25,8 +25,8 @@ public class Calendar {
     @Column(name = "date", unique = true, nullable = false)
     private LocalDate date;
 
-    @OneToMany(mappedBy = "calendar", fetch = FetchType.EAGER)
-    private List<Record> records = new ArrayList<>();
+    /*@OneToMany(mappedBy = "calendar", fetch = FetchType.EAGER)
+    private List<Record> records = new ArrayList<>();*/
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "master_calendar",

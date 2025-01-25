@@ -2,18 +2,20 @@ package com.example.FQW.dto;
 
 import lombok.Data;
 
+import java.time.LocalDate;
+
 @Data
 public class RecordDto {
 
     private Long id;
 
-    private String daily;
+    private String timing;
+
+    private LocalDate date;
 
     private String status;
 
     private ClientDto clientDto;
-
-    private CalendarDto calendarDto;
 
     private MasterDto masterDto;
 

@@ -6,20 +6,14 @@ import com.example.FQW.exception.PlaceException.PlaceAlreadyExistsException;
 import com.example.FQW.exception.PlaceException.PlaceNotFoundException;
 import com.example.FQW.mapper.PlaceMapper;
 import com.example.FQW.repositories.PlaceRepository;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-@Slf4j
-@Getter
-@Setter
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class PlaceService {
 
     private final PlaceRepository placeRepository;
@@ -48,6 +42,12 @@ public class PlaceService {
 
     public Place getPlaceById(Long id) {
         return placeRepository.findById(id)
+                .orElseThrow(PlaceNotFoundException::new);
+    }
+
+    public PlaceDto getPlaceByName(String name) {
+        return placeRepository.findPlaceByName(name)
+                .map(placeMapper::toDTO)
                 .orElseThrow(PlaceNotFoundException::new);
     }
 
