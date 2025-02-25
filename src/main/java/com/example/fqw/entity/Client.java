@@ -1,0 +1,48 @@
+package com.example.fqw.entity;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Table(name = "client", schema = "prod")
+public class Client {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column(name = "name")
+    private String name;
+
+    /*@Column(name = "surname")
+    private String surname;*/
+
+    /*@Column(name = "patronymic")
+    private String patronymic;*/
+
+    @Column(name = "login", unique = true)
+    private String login;
+
+    @Column(name = "password")
+    private String password;
+
+    @Column(name = "email", unique = true)
+    private String email;
+
+    @Column(name = "chat_id", unique = true)
+    private String chatId;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private List<Record> records = new ArrayList<>();
+
+}
