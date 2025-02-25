@@ -7,13 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="FQW" />
+        <module name="fqw" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="FQW" options="-parameters -Amapstruct.defaultComponentModel=spring" />
+      <module name="fqw" options="-parameters -Amapstruct.defaultComponentModel=spring" />
     </option>
   </component>
 </project>
