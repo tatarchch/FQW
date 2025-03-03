@@ -41,11 +41,6 @@ public class MasterService {
                 .orElseThrow(MasterNotFoundException::new);
     }
 
-    public Master getMasterById(Long id) {
-        return masterRepository.findById(id)
-                .orElseThrow(MasterNotFoundException::new);
-    }
-
     public MasterDto getMasterByName(String name) {
         return masterRepository.findMasterByName(name)
                 .map(masterMapper::toDTO)

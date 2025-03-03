@@ -1,6 +1,6 @@
 package com.example.fqw.exceptionHandlers;
 
-import com.example.fqw.exception.RecordException.OtherException;
+import com.example.fqw.exception.OtherException;
 import com.example.fqw.exception.RecordException.RecordException;
 import com.example.fqw.exception.ResponseError;
 import lombok.extern.slf4j.Slf4j;

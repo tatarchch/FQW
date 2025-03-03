@@ -46,7 +46,7 @@ class PlaceServiceTest {
     }
 
     @Test
-    void getByIdTestSuccess() {
+    void getPlaceByIdTestSuccess() {
         var placeId = 1L;
 
         var place = this.getPlaceEntity(placeId, null);
@@ -56,14 +56,14 @@ class PlaceServiceTest {
         when(placeRepository.findById(placeId)).thenReturn(Optional.of(place));
         when(placeMapper.toDTO(place)).thenCallRealMethod();
 
-        assertEquals(placeDto, placeService.getById(placeId));
+        assertEquals(placeDto, placeService.getPlaceById(placeId));
     }
 
     @Test
-    void getByIdTestFailed() {
+    void getPlaceByIdTestFailed() {
         when(placeRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
-        assertThrows(PlaceNotFoundException.class, () -> placeService.getById(1L));
+        assertThrows(PlaceNotFoundException.class, () -> placeService.getPlaceById(1L));
 
         verifyNoInteractions(placeMapper);
     }

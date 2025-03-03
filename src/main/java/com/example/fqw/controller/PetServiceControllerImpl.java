@@ -1,6 +1,7 @@
 package com.example.fqw.controller;
 
 
+import com.example.fqw.api.PetServiceControllerInterface;
 import com.example.fqw.dto.*;
 import com.example.fqw.service.PetServiceService;
 import lombok.RequiredArgsConstructor;
@@ -10,26 +11,35 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/service")
-public class ServiceController {
+public class PetServiceControllerImpl implements PetServiceControllerInterface {
 
     private final PetServiceService petServiceService;
 
-    @GetMapping("/services")
+    @Override
     public List<PetServiceDto> getAllServices() {
         return petServiceService.getAll();
     }
 
-
-    @GetMapping("getServicesByMasterLevel/{masterLevel}")
-    public List<PetServiceDto> getServicesByMasterId(@PathVariable("masterLevel") Long masterLevel) {
+    @Override
+    public List<PetServiceDto> getServicesByMasterId(Long masterLevel) {
         return petServiceService.getServicesByMasterId(masterLevel);
     }
 
-    /*@PostMapping("/pickService/{serviceId}")
-    public PreOrderDto pickService(@PathVariable("serviceId") Long serviceId, @RequestBody PreOrderDto preOrderDto) {
-        return serviceService.pickService(serviceId, preOrderDto);
-    }*/
+    @Override
+    public PetServiceDto getServiceById(Long id) {
+        return petServiceService.getServiceById(id);
+    }
+
+    @Override
+    public PetServiceDto addNewService(PetServiceDto petServiceDto) {
+        return petServiceService.addNewService(petServiceDto);
+    }
+
+    @Override
+    public void deleteServiceById(Long id) {
+        petServiceService.deleteServiceById(id);
+    }
+
 
     /* @GetMapping("/serviceById/{serviceId}")
     public ServiceDto getServiceById(@PathVariable("serviceId") Long serviceId) {

@@ -84,13 +84,23 @@ public class CalendarService {
                 .toList();
     }
 
-    public List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(Long masterId, LocalDate date) {
+    /*public List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(Long masterId, LocalDate date) {
        return masterRepository.findById(masterId)
                .map(master -> calendarRepository.findAllByMastersInAndDateGreaterThanEqual(List.of(master), date))
                .map(calendars -> calendars.stream()
                        .map(calendarMapper::toDTO)
                        .toList())
                .orElseThrow(MasterNotFoundException::new);
+
+    }*/
+
+    public List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(Long masterId) {
+        return masterRepository.findById(masterId)
+                .map(master -> calendarRepository.findAllByMastersInAndDateGreaterThanEqual(List.of(master), LocalDate.now()))
+                .map(calendars -> calendars.stream()
+                        .map(calendarMapper::toDTO)
+                        .toList())
+                .orElseThrow(MasterNotFoundException::new);
 
     }
 

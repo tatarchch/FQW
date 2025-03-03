@@ -38,6 +38,12 @@ public class ClientService {
                 .orElseThrow(ClientNotFoundException::new);
     }
 
+    public ClientDto getClientByName(String name) {
+        return clientRepository.findClientByName(name)
+                .map(clientMapper::toDTO)
+                .orElseThrow(ClientNotFoundException::new);
+    }
+
     public ClientDto getClientByLoginAndPassword(String login, String password) {
         return clientRepository.findClientByLoginAndPassword(login, password)
                 .map(clientMapper::toDTO)
@@ -53,7 +59,7 @@ public class ClientService {
                 .map(clientMapper::toEntity)
                 .map(clientRepository::save)
                 .map(clientMapper::toDTO)
-                .orElseThrow();
+                .orElseThrow(ClientAlreadyExistsException::new);
     }
 
     public ClientDto botLogin(String chatId, String userName) {
