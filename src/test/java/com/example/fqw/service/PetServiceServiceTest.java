@@ -14,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,7 +48,7 @@ class PetServiceServiceTest {
     }
 
     @Test
-    void getByIdTestSuccess() {
+    void getServiceByIdTestSuccess() {
         var serviceId = 1L;
 
         var service = this.getService(1L, null);
@@ -59,14 +58,14 @@ class PetServiceServiceTest {
         when(petServiceRepository.findById(serviceId)).thenReturn(Optional.of(service));
         when(petServiceMapper.toDTO(service)).thenReturn(serviceDto);
 
-        assertEquals(serviceDto, petServiceService.getById(serviceId));
+        assertEquals(serviceDto, petServiceService.getServiceById(serviceId));
     }
 
     @Test
-    void getByIdTestFailed() {
+    void getServiceByIdTestFailed() {
         when(petServiceRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
-        assertThrows(PetServiceNotFoundException.class, () -> petServiceService.getById(1L));
+        assertThrows(PetServiceNotFoundException.class, () -> petServiceService.getServiceById(1L));
 
         verifyNoInteractions(petServiceMapper);
     }

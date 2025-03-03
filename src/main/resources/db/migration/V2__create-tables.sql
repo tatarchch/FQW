@@ -22,15 +22,14 @@ create table prod.place (
 create table prod.master (
     id bigint primary key not null default(nextval('prod.master_seq')),
     name varchar(225) not null,
-    level int,
+    level int not null,
     place_id bigint references prod.place(id),
     active boolean
 );
 
-
 create table prod.pet_service (
     id bigint primary key not null default(nextval('prod.service_seq')),
-    name varchar(40) not null,
+    name varchar(40) not null unique,
     cost int not null,
     level int,
     active boolean

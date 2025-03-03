@@ -30,7 +30,7 @@ public class Master {
     /*@Column(name = "patronymic")
     private String patronymic;*/
 
-    @Column(name = "level")
+    @Column(name = "level", nullable = false)
     private Integer level;
 
     @Column(name = "active")

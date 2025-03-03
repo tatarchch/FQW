@@ -1,4 +1,4 @@
-package com.example.fqw.exception.RecordException;
+package com.example.fqw.exception;
 
 public class OtherException extends RuntimeException {
 

@@ -1,19 +1,11 @@
 package com.example.fqw.service;
 
 import com.example.fqw.dto.PlaceDto;
-import com.example.fqw.entity.Place;
-import com.example.fqw.exception.PlaceException.PlaceAlreadyExistsException;
 import com.example.fqw.exception.PlaceException.PlaceNotFoundException;
-import com.example.fqw.exception.ResponseError;
 import com.example.fqw.mapper.PlaceMapper;
 import com.example.fqw.repositories.PlaceRepository;
-import com.example.fqw.utils.LogUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.List;
@@ -34,7 +26,7 @@ public class PlaceService {
                 .toList();
     }
 
-    public PlaceDto getById(Long id) {
+    public PlaceDto getPlaceById(Long id) {
         return placeRepository.findById(id)
                 .map(placeMapper::toDTO)
                 .orElseThrow(PlaceNotFoundException::new);
@@ -54,9 +46,8 @@ public class PlaceService {
                 .orElseThrow(PlaceNotFoundException::new);
     }
 
-    public Place getPlaceById(Long id) {
-        return placeRepository.findById(id)
-                .orElseThrow(PlaceNotFoundException::new);
+    public void deletePlaceById(Long id) {
+        placeRepository.deleteById(id);
     }
 
     /*public PreOrderDto pickPlace(Long placeId, PreOrderDto preOrderDto) {

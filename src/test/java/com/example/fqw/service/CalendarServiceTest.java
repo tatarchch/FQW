@@ -195,7 +195,7 @@ class CalendarServiceTest {
         when(calendarRepository.findAllByMastersInAndDateGreaterThanEqual(List.of(master), NOW_DATE)).thenReturn(calendarList);
         when(calendarMapper.toDTO(any(Calendar.class))).thenCallRealMethod();
 
-        assertEquals(calendarDtoList, calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(masterId, NOW_DATE));
+        assertEquals(calendarDtoList, calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(masterId));
     }
 
 
