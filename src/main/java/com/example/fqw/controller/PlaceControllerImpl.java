@@ -4,6 +4,7 @@ package com.example.fqw.controller;
 import com.example.fqw.api.PlaceControllerInterface;
 import com.example.fqw.dto.PlaceDto;
 import com.example.fqw.service.PlaceService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+//@SecurityRequirement(name = "basicAuth")
 public class PlaceControllerImpl implements PlaceControllerInterface {
 
     private final PlaceService placeService;

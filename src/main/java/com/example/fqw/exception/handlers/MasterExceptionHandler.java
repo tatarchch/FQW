@@ -1,8 +1,8 @@
-package com.example.fqw.exceptionHandlers;
+package com.example.fqw.exception.handlers;
 
 
-import com.example.fqw.exception.MasterException.MasterAlreadyExistsException;
-import com.example.fqw.exception.MasterException.MasterNotFoundException;
+import com.example.fqw.exception.MasterAlreadyExistsException;
+import com.example.fqw.exception.MasterNotFoundException;
 import com.example.fqw.exception.ResponseError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

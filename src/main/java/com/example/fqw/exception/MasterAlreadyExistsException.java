@@ -1,4 +1,4 @@
-package com.example.fqw.exception.MasterException;
+package com.example.fqw.exception;
 
 public class MasterAlreadyExistsException extends RuntimeException{
 

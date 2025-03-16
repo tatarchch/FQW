@@ -1,4 +1,4 @@
-package com.example.fqw.exception.PetServiceException;
+package com.example.fqw.exception;
 
 public class PetServiceNotFoundException extends RuntimeException {
     public PetServiceNotFoundException() {

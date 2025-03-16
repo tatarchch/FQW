@@ -1,12 +1,11 @@
 package com.example.fqw.service;
 
 import com.example.fqw.dto.MasterDto;
-import com.example.fqw.entity.Master;
 import com.example.fqw.entity.PetService;
-import com.example.fqw.exception.MasterException.MasterAlreadyExistsException;
-import com.example.fqw.exception.MasterException.MasterNotFoundException;
-import com.example.fqw.exception.PetServiceException.PetServiceNotFoundException;
-import com.example.fqw.exception.PlaceException.PlaceNotFoundException;
+import com.example.fqw.exception.MasterAlreadyExistsException;
+import com.example.fqw.exception.MasterNotFoundException;
+import com.example.fqw.exception.PetServiceNotFoundException;
+import com.example.fqw.exception.PlaceNotFoundException;
 import com.example.fqw.mapper.MasterMapper;
 import com.example.fqw.repositories.MasterRepository;
 import com.example.fqw.repositories.PetServiceRepository;

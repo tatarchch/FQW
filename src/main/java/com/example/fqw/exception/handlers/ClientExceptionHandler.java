@@ -1,8 +1,8 @@
-package com.example.fqw.exceptionHandlers;
+package com.example.fqw.exception.handlers;
 
 
-import com.example.fqw.exception.ClientException.ClientAlreadyExistsException;
-import com.example.fqw.exception.ClientException.ClientNotFoundException;
+import com.example.fqw.exception.ClientAlreadyExistsException;
+import com.example.fqw.exception.ClientNotFoundException;
 import com.example.fqw.exception.ResponseError;
 import com.example.fqw.utils.LogUtils;
 import lombok.extern.slf4j.Slf4j;

@@ -2,9 +2,9 @@ package com.example.fqw.service;
 
 import com.example.fqw.dto.RecordDto;
 import com.example.fqw.entity.Record;
-import com.example.fqw.exception.MasterException.MasterNotFoundException;
+import com.example.fqw.exception.MasterNotFoundException;
 import com.example.fqw.exception.OtherException;
-import com.example.fqw.exception.RecordException.RecordException;
+import com.example.fqw.exception.RecordException;
 import com.example.fqw.mapper.RecordMapper;
 import com.example.fqw.repositories.MasterRepository;
 import com.example.fqw.repositories.RecordRepository;

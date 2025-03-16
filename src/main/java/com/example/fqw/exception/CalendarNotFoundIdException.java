@@ -1,4 +1,4 @@
-package com.example.fqw.exception.CalendarException;
+package com.example.fqw.exception;
 
 public class CalendarNotFoundIdException extends RuntimeException {
 

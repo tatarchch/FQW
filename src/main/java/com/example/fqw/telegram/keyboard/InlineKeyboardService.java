@@ -141,7 +141,7 @@ public class InlineKeyboardService {
 
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
-        List<List<InlineKeyboardButton>> buttons = timingList.stream()//.sorted()
+        List<List<InlineKeyboardButton>> buttons = timingList.stream()
                 .map(timing -> {
                     InlineKeyboardButton button = new InlineKeyboardButton();
                     button.setText(timing);

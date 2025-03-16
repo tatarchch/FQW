@@ -2,8 +2,8 @@ package com.example.fqw.service;
 
 import com.example.fqw.dto.PlaceDto;
 import com.example.fqw.entity.Place;
-import com.example.fqw.exception.PlaceException.PlaceAlreadyExistsException;
-import com.example.fqw.exception.PlaceException.PlaceNotFoundException;
+import com.example.fqw.exception.PlaceAlreadyExistsException;
+import com.example.fqw.exception.PlaceNotFoundException;
 import com.example.fqw.mapper.PlaceMapperImpl;
 import com.example.fqw.repositories.PlaceRepository;
 import org.junit.jupiter.api.Test;
