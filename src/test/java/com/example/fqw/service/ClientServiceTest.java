@@ -2,8 +2,8 @@ package com.example.fqw.service;
 
 import com.example.fqw.dto.ClientDto;
 import com.example.fqw.entity.Client;
-import com.example.fqw.exception.ClientException.ClientAlreadyExistsException;
-import com.example.fqw.exception.ClientException.ClientNotFoundException;
+import com.example.fqw.exception.ClientAlreadyExistsException;
+import com.example.fqw.exception.ClientNotFoundException;
 import com.example.fqw.mapper.ClientMapperImpl;
 import com.example.fqw.repositories.ClientRepository;
 import org.junit.jupiter.api.Test;

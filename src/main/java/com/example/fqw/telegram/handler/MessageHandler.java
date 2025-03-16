@@ -30,7 +30,9 @@ public class MessageHandler {
 
     public SendMessage answerMessage(Message message, Map<String, RecordDto> recordMap) {
         SendMessage sendMessage = new SendMessage();
-        ButtonNameEnum command = ButtonNameEnum.getByValue(message.getText());
+            ButtonNameEnum command = ButtonNameEnum.getByValue(message.getText());
+
+
 
         switch (command) {
             case START -> sendMessage = startCommand(message, recordMap);

@@ -3,8 +3,8 @@ package com.example.fqw.service;
 import com.example.fqw.dto.CalendarDto;
 import com.example.fqw.entity.Calendar;
 import com.example.fqw.entity.Master;
-import com.example.fqw.exception.CalendarException.CalendarNotFoundDateException;
-import com.example.fqw.exception.CalendarException.CalendarNotFoundIdException;
+import com.example.fqw.exception.CalendarNotFoundDateException;
+import com.example.fqw.exception.CalendarNotFoundIdException;
 import com.example.fqw.mapper.CalendarMapperImpl;
 import com.example.fqw.repositories.CalendarRepository;
 import com.example.fqw.repositories.MasterRepository;
@@ -195,7 +195,7 @@ class CalendarServiceTest {
         when(calendarRepository.findAllByMastersInAndDateGreaterThanEqual(List.of(master), NOW_DATE)).thenReturn(calendarList);
         when(calendarMapper.toDTO(any(Calendar.class))).thenCallRealMethod();
 
-        assertEquals(calendarDtoList, calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(masterId, NOW_DATE));
+        assertEquals(calendarDtoList, calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(masterId));
     }
 
 

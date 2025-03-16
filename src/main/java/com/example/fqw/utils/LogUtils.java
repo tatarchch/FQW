@@ -71,7 +71,7 @@ public class LogUtils {
     }
 
     public void getErrorLogForExceptionHandler(Exception exception) {
-        log.error(exception.getMessage(), exception);
+        log.error(exception.getCause().getMessage(), exception); //exception.getMessage()
     }
 
 }
