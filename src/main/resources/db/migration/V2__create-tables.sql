@@ -5,7 +5,7 @@ create table prod.calendar (
 
 create table prod.client (
     id bigint primary key not null default(nextval('prod.client_seq')),
-    name varchar(50),
+    name varchar(225),
     login varchar(20) unique,
     password varchar(32),
     email varchar(35) unique,

@@ -1,4 +1,4 @@
-package com.example.fqw.exception.PlaceException;
+package com.example.fqw.exception;
 
 public class PlaceNotFoundException extends RuntimeException{
 

@@ -1,10 +1,7 @@
 package com.example.fqw.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,8 +9,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+/*@AllArgsConstructor
+@NoArgsConstructor*/
+@RequiredArgsConstructor
 @Table(name = "master", schema = "prod")
 public class Master {
     @Id

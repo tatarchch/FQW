@@ -19,13 +19,15 @@ public enum ButtonNameEnum {
     GET_MASTER_BY_SERVICE("выбрать мастера с учётом услуги"),
     GET_SERVICE_BY_MASTER("выбрать услугу с учётом мастера"),
     GET_DATE("выбрать дату"),
-    GET_TIME("выбрать время");
+    GET_TIME("выбрать время"),
+    EXCEPTION("ошибка");
+
 
     public static ButtonNameEnum getByValue(String value) {
         return Arrays.stream(ButtonNameEnum.values())
                 .filter(nameEnum -> nameEnum.getButtonName().equals(value))
                 .findFirst()
-                .orElse(null);
+                .orElse(EXCEPTION);
     }
 
     private final String buttonName;

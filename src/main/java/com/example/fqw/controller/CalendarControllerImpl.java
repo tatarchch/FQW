@@ -4,6 +4,7 @@ package com.example.fqw.controller;
 import com.example.fqw.api.CalendarControllerInterface;
 import com.example.fqw.dto.CalendarDto;
 import com.example.fqw.service.CalendarService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@SecurityRequirement(name = "basicAuth")
 public class CalendarControllerImpl implements CalendarControllerInterface {
 
     private final CalendarService calendarService;

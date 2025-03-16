@@ -46,7 +46,7 @@ public class DateTimeUtils {
     }
 
     public List<String> getFreeTimingList(List<String> timingList, LocalDate date) {
-        return DateTimeUtils.DAILY_SET.stream().sorted() //sorted?
+        return DateTimeUtils.DAILY_SET.stream().sorted()
                 .filter(timing -> !timingList.contains(timing))
                 .filter(timing -> LocalDate.now().isBefore(date) || DateTimeUtils.isTodayAvailableTime(timing))
                 .toList();

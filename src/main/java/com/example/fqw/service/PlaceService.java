@@ -1,9 +1,10 @@
 package com.example.fqw.service;
 
 import com.example.fqw.dto.PlaceDto;
-import com.example.fqw.exception.PlaceException.PlaceNotFoundException;
+import com.example.fqw.exception.PlaceNotFoundException;
 import com.example.fqw.mapper.PlaceMapper;
 import com.example.fqw.repositories.PlaceRepository;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Service
 @RestControllerAdvice
 @RequiredArgsConstructor
+@SecurityRequirement(name = "basicAuth")
 public class PlaceService {
 
     private final PlaceRepository placeRepository;

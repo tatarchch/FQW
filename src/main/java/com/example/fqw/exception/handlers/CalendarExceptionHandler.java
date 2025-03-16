@@ -1,7 +1,7 @@
-package com.example.fqw.exceptionHandlers;
+package com.example.fqw.exception.handlers;
 
-import com.example.fqw.exception.CalendarException.CalendarNotFoundDateException;
-import com.example.fqw.exception.CalendarException.CalendarNotFoundIdException;
+import com.example.fqw.exception.CalendarNotFoundDateException;
+import com.example.fqw.exception.CalendarNotFoundIdException;
 import com.example.fqw.exception.ResponseError;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
