@@ -26,7 +26,7 @@ public class DateTimeUtils {
             "20:00-21:00"
     );
 
-    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+    private final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     public String getNotificationTiming(LocalTime localTime) {
         return String.valueOf(localTime.plusHours(1).getHour())
@@ -46,7 +46,7 @@ public class DateTimeUtils {
     }
 
     public List<String> getFreeTimingList(List<String> timingList, LocalDate date) {
-        return DateTimeUtils.DAILY_SET.stream()
+        return DateTimeUtils.DAILY_SET.stream().sorted()
                 .filter(timing -> !timingList.contains(timing))
                 .filter(timing -> LocalDate.now().isBefore(date) || DateTimeUtils.isTodayAvailableTime(timing))
                 .toList();

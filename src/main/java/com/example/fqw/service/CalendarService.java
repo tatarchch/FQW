@@ -2,9 +2,9 @@ package com.example.fqw.service;
 
 import com.example.fqw.dto.CalendarDto;
 import com.example.fqw.entity.Calendar;
-import com.example.fqw.exception.CalendarException.CalendarNotFoundDateException;
-import com.example.fqw.exception.CalendarException.CalendarNotFoundIdException;
-import com.example.fqw.exception.MasterException.MasterNotFoundException;
+import com.example.fqw.exception.CalendarNotFoundDateException;
+import com.example.fqw.exception.CalendarNotFoundIdException;
+import com.example.fqw.exception.MasterNotFoundException;
 import com.example.fqw.mapper.CalendarMapper;
 import com.example.fqw.repositories.CalendarRepository;
 import com.example.fqw.repositories.MasterRepository;
@@ -22,13 +22,10 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
-@Slf4j
 public class CalendarService {
 
     CalendarRepository calendarRepository;
-
     MasterRepository masterRepository;
-
     CalendarMapper calendarMapper;
 
     public List<CalendarDto> getAllCalendars() {
@@ -84,13 +81,23 @@ public class CalendarService {
                 .toList();
     }
 
-    public List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(Long masterId, LocalDate date) {
+    /*public List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(Long masterId, LocalDate date) {
        return masterRepository.findById(masterId)
                .map(master -> calendarRepository.findAllByMastersInAndDateGreaterThanEqual(List.of(master), date))
                .map(calendars -> calendars.stream()
                        .map(calendarMapper::toDTO)
                        .toList())
                .orElseThrow(MasterNotFoundException::new);
+
+    }*/
+
+    public List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(Long masterId) {
+        return masterRepository.findById(masterId)
+                .map(master -> calendarRepository.findAllByMastersInAndDateGreaterThanEqual(List.of(master), LocalDate.now()))
+                .map(calendars -> calendars.stream()
+                        .map(calendarMapper::toDTO)
+                        .toList())
+                .orElseThrow(MasterNotFoundException::new);
 
     }
 

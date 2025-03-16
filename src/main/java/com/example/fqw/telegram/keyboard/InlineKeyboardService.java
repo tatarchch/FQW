@@ -118,7 +118,8 @@ public class InlineKeyboardService {
     }
 
     public InlineKeyboardMarkup getInlineMessageButtonsForDate(Long masterId) {
-        List<CalendarDto> calendarList = calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(masterId, LocalDate.now());
+        //List<CalendarDto> calendarList = calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(masterId, LocalDate.now());
+        List<CalendarDto> calendarList = calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(masterId);
 
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
@@ -140,7 +141,7 @@ public class InlineKeyboardService {
 
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
-        List<List<InlineKeyboardButton>> buttons = timingList.stream().sorted()
+        List<List<InlineKeyboardButton>> buttons = timingList.stream()
                 .map(timing -> {
                     InlineKeyboardButton button = new InlineKeyboardButton();
                     button.setText(timing);
