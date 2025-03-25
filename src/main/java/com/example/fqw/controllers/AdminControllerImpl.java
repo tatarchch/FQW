@@ -1,8 +1,8 @@
-package com.example.fqw.controller;
+package com.example.fqw.controllers;
 
 import com.example.fqw.api.AdminControllerInterface;
-import com.example.fqw.dto.AdminDto;
-import com.example.fqw.service.AdministrationService;
+import com.example.fqw.dto.ClientDto;
+import com.example.fqw.services.AdminService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,15 +14,15 @@ import java.util.List;
 @SecurityRequirement(name = "basicAuth")
 public class AdminControllerImpl implements AdminControllerInterface {
 
-    private final AdministrationService administrationService;
+    private final AdminService adminService;
 
     @Override
-    public List<AdminDto> getAllAdmins() {
-        return administrationService.getAllAdmins();
+    public List<ClientDto> getAllAdmins() {
+        return adminService.getAllAdmins();
     }
 
     @Override
-    public AdminDto addNewAdmin(AdminDto adminDto) {
-        return administrationService.addNewAdmin(adminDto);
+    public ClientDto addNewAdmin(ClientDto clientDto) {
+        return adminService.addNewAdmin(clientDto);
     }
 }

@@ -6,6 +6,7 @@ import com.example.fqw.exception.PlaceAlreadyExistsException;
 import com.example.fqw.exception.PlaceNotFoundException;
 import com.example.fqw.mapper.PlaceMapperImpl;
 import com.example.fqw.repositories.PlaceRepository;
+import com.example.fqw.services.PlaceService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -5,9 +5,9 @@ insert into prod.calendar (date) values
 ('2025-03-11'),
 ('2025-03-12');
 
-insert into prod.client (name, login, password, email) values
-('Viktor Samohin', 'soh', '123', 'soh123@mail.ru'),
-('Nikita Ivanov Sergeevich', 'nekit', '098', 'nekit098@mail.ru');
+insert into prod.client (name, login, password, email, role) values
+('Viktor Samohin', 'user', '$2a$05$sfy7csYJVFnb.pyn9CSdsudL2PA1cGtifOfZomhZA/U4/BIpU7siS', 'user@mail.ru', 'USER'),
+('Ivanov Nikita Alekseevich', 'admin', '$2a$11$Ajlqx/pZ6zYJqgSSP4EdruQUIKwhmjVcLPLId13aavwjd8p8QTama', 'admin@mail.ru', 'ADMIN');
 
 insert into prod.place (name, address, active) values
 ('Animal House', 'Pravdi 24', true),
@@ -24,10 +24,7 @@ insert into prod.pet_service (name, cost, level, active) values
 ('vaccination', 500, 2,  true);
 
 insert into prod.record (timing, date, client_id, master_id, pet_service_id) values
-('09:00-10:00', '2025-03-08', 1, 1, 1),
-('10:00-11:00', '2025-03-09', 1, 2, 1),
-('10:00-11:00', '2025-03-10', 1, 1, 2),
-('09:00-10:00', '2025-03-10', 1, 1, 1);
+('09:00-10:00', '2025-03-08', 1, 1, 1);
 
 insert into prod.master_calendar (master_id, calendar_id) values
 (1, 1), (1, 2), (1, 3), (1, 4), (1, 5),

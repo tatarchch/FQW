@@ -1,6 +1,5 @@
 package com.example.fqw.repositories;
 
-import com.example.fqw.dto.MasterDto;
 import com.example.fqw.entity.Master;
 import com.example.fqw.entity.Record;
 import org.springframework.data.jpa.repository.JpaRepository;

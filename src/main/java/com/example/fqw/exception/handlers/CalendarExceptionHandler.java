@@ -17,14 +17,14 @@ public class CalendarExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseError handleCalendarNotFoundDateException(CalendarNotFoundDateException exception) {
         log.error(exception.getMessage(), exception);
-        return new ResponseError(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseError(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseError handleCalendarNotFoundIdException(CalendarNotFoundIdException exception) {
         log.error(exception.getMessage(), exception);
-        return new ResponseError(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseError(exception.getMessage());
     }
 
 }

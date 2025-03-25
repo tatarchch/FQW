@@ -1,6 +1,6 @@
 package com.example.fqw.telegram.keyboard;
 
-import com.example.fqw.telegram.constant.ButtonNameEnum;
+import com.example.fqw.enums.ButtonNameEnum;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;

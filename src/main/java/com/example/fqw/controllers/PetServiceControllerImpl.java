@@ -1,9 +1,9 @@
-package com.example.fqw.controller;
+package com.example.fqw.controllers;
 
 
 import com.example.fqw.api.PetServiceControllerInterface;
 import com.example.fqw.dto.*;
-import com.example.fqw.service.PetServiceService;
+import com.example.fqw.services.PetServiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
