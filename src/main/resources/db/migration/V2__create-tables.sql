@@ -7,9 +7,10 @@ create table prod.client (
     id bigint primary key not null default(nextval('prod.client_seq')),
     name varchar(225),
     login varchar(20) unique,
-    password varchar(32),
+    password varchar(100),
     email varchar(35) unique,
-    chat_id varchar (50) unique
+    chat_id varchar(50) unique,
+    role varchar(30)
 );
 
 create table prod.place (
@@ -21,7 +22,7 @@ create table prod.place (
 
 create table prod.master (
     id bigint primary key not null default(nextval('prod.master_seq')),
-    name varchar(225) not null,
+    name varchar(100) not null,
     level int not null,
     place_id bigint references prod.place(id),
     active boolean

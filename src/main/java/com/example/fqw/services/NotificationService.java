@@ -1,13 +1,12 @@
-package com.example.fqw.service;
+package com.example.fqw.services;
 
 import com.example.fqw.dto.RecordDto;
 import com.example.fqw.email.EmailMessage;
 import com.example.fqw.email.EmailSender;
-import com.example.fqw.entity.Record;
 import com.example.fqw.mapper.RecordMapper;
 import com.example.fqw.repositories.RecordRepository;
 import com.example.fqw.telegram.TelegramBot;
-import com.example.fqw.telegram.constant.BotMessageEnum;
+import com.example.fqw.enums.BotMessageEnum;
 import com.example.fqw.utils.DateTimeUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

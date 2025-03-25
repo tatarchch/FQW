@@ -1,4 +1,4 @@
-package com.example.fqw.telegram.config;
+package com.example.fqw.config;
 
 import com.example.fqw.telegram.TelegramBot;
 import lombok.Getter;

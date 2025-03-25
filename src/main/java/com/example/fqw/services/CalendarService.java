@@ -1,4 +1,4 @@
-package com.example.fqw.service;
+package com.example.fqw.services;
 
 import com.example.fqw.dto.CalendarDto;
 import com.example.fqw.entity.Calendar;
@@ -11,7 +11,6 @@ import com.example.fqw.repositories.MasterRepository;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;

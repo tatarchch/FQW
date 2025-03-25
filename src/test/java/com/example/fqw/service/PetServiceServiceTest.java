@@ -8,6 +8,7 @@ import com.example.fqw.exception.PetServiceNotFoundException;
 import com.example.fqw.mapper.PetServiceMapperImpl;
 import com.example.fqw.repositories.MasterRepository;
 import com.example.fqw.repositories.PetServiceRepository;
+import com.example.fqw.services.PetServiceService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

@@ -1,10 +1,9 @@
-package com.example.fqw.controller;
+package com.example.fqw.controllers;
 
 
 import com.example.fqw.api.PlaceControllerInterface;
 import com.example.fqw.dto.PlaceDto;
-import com.example.fqw.service.PlaceService;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import com.example.fqw.services.PlaceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

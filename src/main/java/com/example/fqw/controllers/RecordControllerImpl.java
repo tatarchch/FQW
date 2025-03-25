@@ -1,9 +1,9 @@
-package com.example.fqw.controller;
+package com.example.fqw.controllers;
 
 
 import com.example.fqw.api.RecordControllerInterface;
 import com.example.fqw.dto.RecordDto;
-import com.example.fqw.service.RecordService;
+import com.example.fqw.services.RecordService;
 import com.example.fqw.utils.DateTimeUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

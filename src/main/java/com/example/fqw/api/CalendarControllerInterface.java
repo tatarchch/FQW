@@ -7,12 +7,11 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-@SecurityRequirement(name = "basicAuth")
+@SecurityRequirement(name = "bearerAuth")
 @RequestMapping("/api/v1/calendar")
 public interface CalendarControllerInterface {
 
     @GetMapping("/getAll")
-    //@PreAuthorize("hasRole('ADMIN')")
     List<CalendarDto> getAllCalendar();
 
     @GetMapping("/getById/{calendarId}")
