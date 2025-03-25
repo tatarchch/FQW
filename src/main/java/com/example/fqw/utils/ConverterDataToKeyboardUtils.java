@@ -2,9 +2,9 @@ package com.example.fqw.utils;
 
 import com.example.fqw.dto.CalendarDto;
 import com.example.fqw.dto.MasterDto;
-import com.example.fqw.dto.PlaceDto;
 import com.example.fqw.dto.PetServiceDto;
-import com.example.fqw.telegram.constant.ButtonNameEnum;
+import com.example.fqw.dto.PlaceDto;
+import com.example.fqw.enums.ButtonNameEnum;
 import lombok.experimental.UtilityClass;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
@@ -399,17 +399,6 @@ public class ConverterDataToKeyboardUtils {
                             return List.of(button);
                         }
                 ).toList();
-
-        //List<CalendarDto> sortedCalendars = calendars.sort();
-
-        /*for (CalendarDto calendarDto : calendars) {
-            List<InlineKeyboardButton> rowLine = new ArrayList<>();
-            InlineKeyboardButton button = new InlineKeyboardButton();
-            button.setText(calendarDto.getDate().toString());
-            button.setCallbackData(ButtonNameEnum.GET_DATE.name() + "/" + calendarDto.getId());
-            rowLine.add(button);
-            buttons.add(rowLine);
-        }*/
         inlineKeyboardMarkup.setKeyboard(buttons);
 
         return inlineKeyboardMarkup;

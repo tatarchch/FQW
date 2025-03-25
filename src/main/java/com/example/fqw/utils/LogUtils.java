@@ -1,8 +1,8 @@
 package com.example.fqw.utils;
 
 import com.example.fqw.dto.*;
-import com.example.fqw.telegram.constant.BotMessageEnum;
-import com.example.fqw.telegram.constant.LogMessageEnum;
+import com.example.fqw.enums.BotMessageEnum;
+import com.example.fqw.enums.LogMessageEnum;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -71,7 +71,7 @@ public class LogUtils {
     }
 
     public void getErrorLogForExceptionHandler(Exception exception) {
-        log.error(exception.getCause().getMessage(), exception); //exception.getMessage()
+        log.error(exception.getMessage(), exception); //exception.getMessage()
     }
 
 }

@@ -18,14 +18,14 @@ public class MasterExceptionHandler {
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseError handleMasterAlreadyExistsException(MasterAlreadyExistsException exception) {
         log.error(exception.getMessage(), exception);
-        return new ResponseError(exception.getMessage(), HttpStatus.CONFLICT);
+        return new ResponseError(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseError handleMasterNotFoundException(MasterNotFoundException exception) {
         log.error(exception.getMessage(), exception);
-        return new ResponseError(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseError(exception.getMessage());
     }
 
 }

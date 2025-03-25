@@ -2,10 +2,10 @@ package com.example.fqw.telegram.keyboard;
 
 import com.example.fqw.dto.CalendarDto;
 import com.example.fqw.dto.MasterDto;
-import com.example.fqw.dto.PlaceDto;
 import com.example.fqw.dto.PetServiceDto;
-import com.example.fqw.service.*;
-import com.example.fqw.telegram.constant.ButtonNameEnum;
+import com.example.fqw.dto.PlaceDto;
+import com.example.fqw.enums.ButtonNameEnum;
+import com.example.fqw.services.*;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;

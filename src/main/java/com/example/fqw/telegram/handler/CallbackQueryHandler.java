@@ -1,9 +1,12 @@
 package com.example.fqw.telegram.handler;
 
 import com.example.fqw.dto.*;
-import com.example.fqw.service.*;
-import com.example.fqw.telegram.constant.BotMessageEnum;
-import com.example.fqw.telegram.constant.ButtonNameEnum;
+import com.example.fqw.enums.BotMessageEnum;
+import com.example.fqw.enums.ButtonNameEnum;
+import com.example.fqw.services.CalendarService;
+import com.example.fqw.services.MasterService;
+import com.example.fqw.services.PetServiceService;
+import com.example.fqw.services.PlaceService;
 import com.example.fqw.telegram.keyboard.InlineKeyboardService;
 import com.example.fqw.telegram.keyboard.ReplyKeyboardService;
 import com.example.fqw.utils.LogUtils;

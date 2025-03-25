@@ -2,7 +2,7 @@ package com.example.fqw.telegram;
 
 import com.example.fqw.dto.RecordDto;
 import com.example.fqw.exception.TelegramUserNotFound;
-import com.example.fqw.telegram.constant.BotMessageEnum;
+import com.example.fqw.enums.BotMessageEnum;
 import com.example.fqw.telegram.handler.CallbackQueryHandler;
 import com.example.fqw.telegram.handler.MessageHandler;
 import lombok.Setter;

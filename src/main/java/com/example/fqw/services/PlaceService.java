@@ -1,4 +1,4 @@
-package com.example.fqw.service;
+package com.example.fqw.services;
 
 import com.example.fqw.dto.PlaceDto;
 import com.example.fqw.exception.PlaceNotFoundException;

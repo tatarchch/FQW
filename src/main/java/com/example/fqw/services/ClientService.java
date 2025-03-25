@@ -1,4 +1,4 @@
-package com.example.fqw.service;
+package com.example.fqw.services;
 
 import com.example.fqw.dto.ClientDto;
 import com.example.fqw.entity.Client;
@@ -6,22 +6,13 @@ import com.example.fqw.exception.ClientAlreadyExistsException;
 import com.example.fqw.exception.ClientNotFoundException;
 import com.example.fqw.mapper.ClientMapper;
 import com.example.fqw.repositories.ClientRepository;
-import lombok.NoArgsConstructor;
+import com.example.fqw.enums.RolesEnum;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,45 +21,70 @@ public class ClientService {
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
 
-    //private final BCryptPasswordEncoder passwordEncoder;
+    private final PasswordEncoder encoder;
 
-    public List<ClientDto> getAllClients() {
+    /*public List<ClientDto> getAllClients() {
         return clientRepository.findAll().stream()
+                .map(clientMapper::toDTO)
+                .toList();
+    }*/
+
+    public List<ClientDto> getAllUsers() {
+        return clientRepository.findAllByRole(RolesEnum.USER.getRole()).stream()
                 .map(clientMapper::toDTO)
                 .toList();
     }
 
     public ClientDto getClientById(Long id) {
-        return clientRepository.findById(id)
+        return clientRepository.findByIdAndRole(id, RolesEnum.USER.getRole())
                 .map(clientMapper::toDTO)
                 .orElseThrow(ClientNotFoundException::new);
     }
 
     public ClientDto getClientByLogin(String login) {
-        return clientRepository.findClientByLogin(login)
+        return clientRepository.findClientByLoginAndRole(login, RolesEnum.USER.getRole())
                 .map(clientMapper::toDTO)
                 .orElseThrow(ClientNotFoundException::new);
     }
 
     public ClientDto getClientByName(String name) {
-        return clientRepository.findClientByName(name)
+        return clientRepository.findClientByNameAndRole(name, RolesEnum.USER.getRole())
                 .map(clientMapper::toDTO)
                 .orElseThrow(ClientNotFoundException::new);
     }
 
-    public ClientDto getClientByLoginAndPassword(String login, String password) {
-        return clientRepository.findClientByLoginAndPassword(login, password)
+    /*public ClientDto getClientByLoginAndPassword(String login, String password) {
+        Optional<Client> client = clientRepository.findClientByLoginAndRole(login, RolesEnum.USER.getRole());
+        return client
+                .map(Client::getPassword)
+                .map(encPass -> encoder.matches(password, encPass))
+                .filter(Boolean.TRUE::equals)
+                .map(e -> client.orElseThrow(ClientNotFoundException::new))
                 .map(clientMapper::toDTO)
                 .orElseThrow(ClientNotFoundException::new);
-    }
+    } //mb redundant*/
+
+    public ClientDto getClientByLoginAndPassword(String login, String password) {
+        return clientRepository.findClientByLoginAndRole(login, RolesEnum.USER.getRole())
+                .filter(client -> encoder.matches(password, client.getPassword()))
+                .map(clientMapper::toDTO)
+                .orElseThrow(ClientNotFoundException::new);
+    } //mb redundant
 
     public ClientDto registration(ClientDto clientDto) {
         return Optional.of(clientDto)
                 .map(ClientDto::getLogin)
                 .map(clientRepository::existsClientByLogin)
                 .filter(Boolean.FALSE::equals)
-                .map(predicate -> clientDto)
+                .map(dto -> {
+                    clientDto.setRole(RolesEnum.USER.getRole());
+                    return clientDto;
+                })
                 .map(clientMapper::toEntity)
+                .map(client -> {
+                    client.setPassword(encoder.encode(client.getPassword()));
+                    return client;
+                })
                 .map(clientRepository::save)
                 .map(clientMapper::toDTO)
                 .orElseThrow(ClientAlreadyExistsException::new);

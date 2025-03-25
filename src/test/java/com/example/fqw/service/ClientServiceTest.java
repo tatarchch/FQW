@@ -6,11 +6,13 @@ import com.example.fqw.exception.ClientAlreadyExistsException;
 import com.example.fqw.exception.ClientNotFoundException;
 import com.example.fqw.mapper.ClientMapperImpl;
 import com.example.fqw.repositories.ClientRepository;
+import com.example.fqw.services.ClientService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,9 +28,12 @@ class ClientServiceTest {
     private ClientRepository clientRepository;
     @Mock
     private ClientMapperImpl clientMapper;
+    @Mock
+    private PasswordEncoder encoder;
 
     @InjectMocks
     private ClientService clientService;
+
 
     /*@BeforeEach
     void init() {
@@ -36,7 +41,7 @@ class ClientServiceTest {
     }*/
 
     @Test
-    void getAllClientsTestSuccess() {
+    void getAllUsersTestSuccess() {
 
         var client1 = this.getClientEntity(null, "login1", "password1", null, null);
         var client2 = this.getClientEntity(null, "login2", "password2", null, null);
@@ -49,15 +54,15 @@ class ClientServiceTest {
         when(clientRepository.findAll()).thenReturn(List.of(client1, client2, client3));
         when(clientMapper.toDTO(any(Client.class))).thenCallRealMethod();
 
-        assertIterableEquals(List.of(clientDto1, clientDto2, clientDto3), clientService.getAllClients());
+        assertIterableEquals(List.of(clientDto1, clientDto2, clientDto3), clientService.getAllUsers());
 
     }
 
     @Test
-    void getAllClientsTestFailed() {
+    void getAllUsersTestFailed() {
         when(clientRepository.findAll()).thenReturn(Collections.emptyList());
 
-        assertTrue(clientService.getAllClients().isEmpty());
+        assertTrue(clientService.getAllUsers().isEmpty());
     }
 
     @Test
@@ -118,7 +123,9 @@ class ClientServiceTest {
         var client = this.getClientEntity(null, login, password, null, null);
         var expectedClientDto = this.getClientDto(null, login, password, null, null);
 
-        when(clientRepository.findClientByLoginAndPassword(login, password)).thenReturn(Optional.of(client));
+        when(clientRepository.findClientByLogin(login)).thenReturn(Optional.of(client));
+        //when(encoder.encode(password)).thenReturn(password);
+        when(encoder.matches(password, password)).thenReturn(true);
         when(clientMapper.toDTO(client)).thenCallRealMethod();
 
         assertEquals(expectedClientDto, clientService.getClientByLoginAndPassword(login, password));
@@ -127,7 +134,7 @@ class ClientServiceTest {
     @Test
     void getClientByLoginAndPasswordTestFailed() {
 
-        when(clientRepository.findClientByLoginAndPassword(any(String.class), any(String.class)))
+        when(clientRepository.findClientByLoginAndRole(any(String.class), any()))
                 .thenReturn(Optional.empty());
 
         assertThrows(ClientNotFoundException.class, () -> clientService.getClientByLoginAndPassword("login", "password"));
@@ -139,6 +146,7 @@ class ClientServiceTest {
 
         when(clientRepository.existsClientByLogin(any(String.class))).thenReturn(false);
         when(clientMapper.toEntity(any(ClientDto.class))).thenCallRealMethod();
+        when(encoder.encode(clientDto.getPassword())).thenReturn(clientDto.getPassword());
         when(clientRepository.save(any(Client.class))).then(invocation -> invocation.getArgument(0));
         when(clientMapper.toDTO(any(Client.class))).thenCallRealMethod();
 

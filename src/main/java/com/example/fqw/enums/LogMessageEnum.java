@@ -1,4 +1,4 @@
-package com.example.fqw.telegram.constant;
+package com.example.fqw.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

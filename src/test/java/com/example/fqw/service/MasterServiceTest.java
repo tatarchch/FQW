@@ -12,6 +12,7 @@ import com.example.fqw.mapper.MasterMapperImpl;
 import com.example.fqw.repositories.MasterRepository;
 import com.example.fqw.repositories.PetServiceRepository;
 import com.example.fqw.repositories.PlaceRepository;
+import com.example.fqw.services.MasterService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

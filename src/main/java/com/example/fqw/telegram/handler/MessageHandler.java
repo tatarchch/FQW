@@ -2,9 +2,10 @@ package com.example.fqw.telegram.handler;
 
 import com.example.fqw.dto.ClientDto;
 import com.example.fqw.dto.RecordDto;
-import com.example.fqw.service.*;
-import com.example.fqw.telegram.constant.BotMessageEnum;
-import com.example.fqw.telegram.constant.ButtonNameEnum;
+import com.example.fqw.enums.BotMessageEnum;
+import com.example.fqw.enums.ButtonNameEnum;
+import com.example.fqw.services.ClientService;
+import com.example.fqw.services.RecordService;
 import com.example.fqw.telegram.keyboard.InlineKeyboardService;
 import com.example.fqw.telegram.keyboard.ReplyKeyboardService;
 import com.example.fqw.utils.LogUtils;
