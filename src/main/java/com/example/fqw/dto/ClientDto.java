@@ -15,6 +15,8 @@ public class ClientDto {
 
     private String email;
 
+    private String role;
+
     private String chatId;
 
 }

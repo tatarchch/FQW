@@ -1,9 +1,9 @@
-package com.example.fqw.controller;
+package com.example.fqw.controllers;
 
 
 import com.example.fqw.api.MasterControllerInterface;
 import com.example.fqw.dto.MasterDto;
-import com.example.fqw.service.MasterService;
+import com.example.fqw.services.MasterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 

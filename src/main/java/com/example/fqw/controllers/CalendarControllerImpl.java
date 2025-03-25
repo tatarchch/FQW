@@ -1,9 +1,9 @@
-package com.example.fqw.controller;
+package com.example.fqw.controllers;
 
 
 import com.example.fqw.api.CalendarControllerInterface;
 import com.example.fqw.dto.CalendarDto;
-import com.example.fqw.service.CalendarService;
+import com.example.fqw.services.CalendarService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;

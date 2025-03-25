@@ -6,14 +6,12 @@ import com.example.fqw.entity.*;
 import com.example.fqw.entity.Record;
 import com.example.fqw.mapper.*;
 import com.example.fqw.repositories.RecordRepository;
+import com.example.fqw.services.NotificationService;
 import com.example.fqw.telegram.TelegramBot;
-import org.eclipse.angus.mail.imap.ACL;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockedStatic;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 

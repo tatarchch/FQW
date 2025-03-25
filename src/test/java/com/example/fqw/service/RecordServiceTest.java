@@ -8,6 +8,7 @@ import com.example.fqw.exception.RecordException;
 import com.example.fqw.mapper.RecordMapperImpl;
 import com.example.fqw.repositories.MasterRepository;
 import com.example.fqw.repositories.RecordRepository;
+import com.example.fqw.services.RecordService;
 import com.example.fqw.utils.DateTimeUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

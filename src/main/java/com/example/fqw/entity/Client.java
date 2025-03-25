@@ -40,6 +40,10 @@ public class Client {
     @Column(name = "chat_id", unique = true)
     private String chatId;
 
+    @Column(name = "role")
+    private String role;
+
+
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Record> records = new ArrayList<>();
 

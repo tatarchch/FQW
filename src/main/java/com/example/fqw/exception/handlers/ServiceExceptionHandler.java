@@ -16,7 +16,7 @@ public class ServiceExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseError handleServiceNorFoundException(PetServiceNotFoundException exception) {
         log.error(exception.getMessage(), exception);
-        return new ResponseError(exception.getMessage(), HttpStatus.NOT_FOUND);
+        return new ResponseError(exception.getMessage());
     }
 
 }

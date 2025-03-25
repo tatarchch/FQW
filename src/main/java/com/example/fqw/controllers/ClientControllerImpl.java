@@ -1,13 +1,10 @@
-package com.example.fqw.controller;
+package com.example.fqw.controllers;
 
 
 import com.example.fqw.api.ClientControllerInterface;
 import com.example.fqw.dto.ClientDto;
-import com.example.fqw.entity.Client;
-import com.example.fqw.service.ClientService;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import com.example.fqw.services.ClientService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +27,7 @@ public class ClientControllerImpl implements ClientControllerInterface {
 
     @Override
     public List<ClientDto> getAllClients() {
-        return clientService.getAllClients();
+        return clientService.getAllUsers();
     }
 
     @Override
