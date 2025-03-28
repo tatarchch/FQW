@@ -5,4 +5,5 @@ public class LowAccessLevelException extends RuntimeException{
     public LowAccessLevelException() {
         super("Недостаточно прав для доступа");
     }
+
 }

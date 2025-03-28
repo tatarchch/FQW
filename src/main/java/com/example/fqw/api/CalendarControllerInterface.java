@@ -15,27 +15,21 @@ public interface CalendarControllerInterface {
     List<CalendarDto> getAllCalendar();
 
     @GetMapping("/getById/{calendarId}")
-    //@PreAuthorize("hasRole('ADMIN'")
     CalendarDto getCalendarById(@PathVariable("calendarId") Long calendarId);
 
     @GetMapping("/getByDate/{date}")
-    //@PreAuthorize("hasRole('ADMIN')")
     CalendarDto getCalendarByDate(@PathVariable("date") LocalDate date);
 
     @GetMapping("/getByMasterInAndDateGreaterThanEqual/{calendarId}")
-    //@PreAuthorize("hasRole('ADMIN')")
     List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(@PathVariable("calendarId") Long calendarId);
 
     @DeleteMapping("/deleteById/{calendarId}")
-    //@PreAuthorize("hasRole('ADMIN')")
     void deleteCalendarById(@PathVariable("calendarId") Long calendarId);
 
     @PostMapping("/addNewByDay/{plusDays}")
-    //@PreAuthorize("hasRole('ADMIN')")
     CalendarDto addCalendarWithDay(@PathVariable("plusDays") Integer plusDays);
 
     @PutMapping("/addMasters/{calendarId}")
-    //@PreAuthorize("hasRole('ADMIN')")
     CalendarDto addCalendarData(@RequestBody List<Long> mastersId, @PathVariable("calendarId") Long id);
 
 }

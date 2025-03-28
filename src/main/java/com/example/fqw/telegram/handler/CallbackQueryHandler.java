@@ -22,7 +22,7 @@ import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class CallbackQueryHandler {
 
     CalendarService calendarService;

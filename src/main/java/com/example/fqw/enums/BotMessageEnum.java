@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum BotMessageEnum {
 
-    //ответы на команды с клавиатуры
     START("Добро пожаловать, %s!" +
             " Здесь Вы можете записаться в салон по уходу" +
             " за домашними животными"),
@@ -60,13 +59,9 @@ public enum BotMessageEnum {
             Адрес проведения: %s
             Время проведения: %s"""),
 
-
-    //ошибки при обработке message-ов
     EXCEPTION_BAD_BUTTON_NAME_MESSAGE("Неверное значение. Выберите предложенные варианты"),
 
-    //ошибки при обработке callback-ов
     EXCEPTION_WHAT_THE_FUCK("Что-то пошло не так. Попробуйте позже");
-
 
     private final String message;
 

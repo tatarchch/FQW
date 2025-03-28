@@ -2,11 +2,11 @@ package com.example.fqw.services;
 
 import com.example.fqw.dto.ClientDto;
 import com.example.fqw.entity.Client;
+import com.example.fqw.enums.RolesEnum;
 import com.example.fqw.exception.ClientAlreadyExistsException;
 import com.example.fqw.exception.ClientNotFoundException;
 import com.example.fqw.mapper.ClientMapper;
 import com.example.fqw.repositories.ClientRepository;
-import com.example.fqw.enums.RolesEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,14 +20,7 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
     private final ClientMapper clientMapper;
-
     private final PasswordEncoder encoder;
-
-    /*public List<ClientDto> getAllClients() {
-        return clientRepository.findAll().stream()
-                .map(clientMapper::toDTO)
-                .toList();
-    }*/
 
     public List<ClientDto> getAllUsers() {
         return clientRepository.findAllByRole(RolesEnum.USER.getRole()).stream()
@@ -53,23 +46,12 @@ public class ClientService {
                 .orElseThrow(ClientNotFoundException::new);
     }
 
-    /*public ClientDto getClientByLoginAndPassword(String login, String password) {
-        Optional<Client> client = clientRepository.findClientByLoginAndRole(login, RolesEnum.USER.getRole());
-        return client
-                .map(Client::getPassword)
-                .map(encPass -> encoder.matches(password, encPass))
-                .filter(Boolean.TRUE::equals)
-                .map(e -> client.orElseThrow(ClientNotFoundException::new))
-                .map(clientMapper::toDTO)
-                .orElseThrow(ClientNotFoundException::new);
-    } //mb redundant*/
-
     public ClientDto getClientByLoginAndPassword(String login, String password) {
         return clientRepository.findClientByLoginAndRole(login, RolesEnum.USER.getRole())
                 .filter(client -> encoder.matches(password, client.getPassword()))
                 .map(clientMapper::toDTO)
                 .orElseThrow(ClientNotFoundException::new);
-    } //mb redundant
+    }
 
     public ClientDto registration(ClientDto clientDto) {
         return Optional.of(clientDto)

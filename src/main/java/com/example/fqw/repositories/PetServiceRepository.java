@@ -8,11 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PetServiceRepository extends JpaRepository<PetService,Long> {
-
-    /*default List<PlaceDto> getPlaceDtos(){
-        return
-    };*/
+public interface PetServiceRepository extends JpaRepository<PetService, Long> {
 
     List<PetService> findAllByLevelLessThanEqual(Integer level);
 

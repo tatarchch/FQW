@@ -18,12 +18,4 @@ public interface CalendarRepository extends JpaRepository<Calendar, Long> {
 
     List<Calendar> findAllByMastersInAndDateGreaterThanEqual(List<Master> masters, LocalDate date);
 
-
-    /*@Query("select calendar.id, calendar.date" +
-            "from Calendar calendar" +
-            "join Calendar masters" +
-            "join Master calendars" +
-            "where master.id = :masterId and master.active = true")
-    List<Calendar> queryAllCalendarsByMasterId(Long id);*/
-
 }

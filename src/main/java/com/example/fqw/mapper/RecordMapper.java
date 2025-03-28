@@ -23,24 +23,4 @@ public interface RecordMapper {
     @Mapping(target = "placeDto", source = "master.place")
     RecordDto toDTO(Record record);
 
-    /*@Named("clientToDto")
-    default ClientDto clientToDto(Client client) {
-        return Mappers.getMapper(ClientMapper.class).toDTO(client);
-    }
-
-    @Named("placeToDto")
-    default PlaceDto placeToDto(Place place) {
-        return Mappers.getMapper(PlaceMapper.class).toDTO(place);
-    }
-
-    @Named("petServiceToDto")
-    default PetServiceDto petServiceToDto(PetService petService) {
-        return Mappers.getMapper(PetServiceMapper.class).toDTO(petService);
-    }
-
-    @Named("masterToDto")
-    default MasterDto masterToDto(Master master) {
-        return Mappers.getMapper(MasterMapper.class).toDTO(master);
-    }*/
-
 }

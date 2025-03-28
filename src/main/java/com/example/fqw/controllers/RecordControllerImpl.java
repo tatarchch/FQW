@@ -6,7 +6,7 @@ import com.example.fqw.dto.RecordDto;
 import com.example.fqw.services.RecordService;
 import com.example.fqw.utils.DateTimeUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -36,8 +36,4 @@ public class RecordControllerImpl implements RecordControllerInterface {
         return recordService.getTimingsByMasterAndDate(masterId, DateTimeUtils.getLocalDateFromString(date));
     }
 
-    /*@DeleteMapping("/recordDeleteById/{recordId}")
-    public void deleteRecordById(@PathVariable("recordId") Long recordId) {
-        recordService.cancelRecordById(recordId);
-    }*/
 }

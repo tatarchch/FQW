@@ -8,6 +8,7 @@ import java.util.Base64;
 
 @UtilityClass
 public class AuthUtils {
+
     public String getBasicAuth(Authentication authentication) {
         String login = ((User) authentication.getPrincipal()).getUsername();
         String password = (String) authentication.getCredentials();
@@ -15,4 +16,5 @@ public class AuthUtils {
         byte[] encodedBytes = Base64.getEncoder().encode(auth.getBytes());
         return "Basic ".concat(new String(encodedBytes));
     }
+
 }

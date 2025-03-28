@@ -1,15 +1,15 @@
 package com.example.fqw.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
 @Getter
 @Setter
-/*@AllArgsConstructor
-@NoArgsConstructor*/
 @RequiredArgsConstructor
 @Table(name = "record", schema = "prod")
 public class Record {
@@ -30,10 +30,6 @@ public class Record {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
-
-    /*@ManyToOne
-    @JoinColumn(name = "place_id")
-    private Place place;*/
 
     @ManyToOne
     @JoinColumn(name = "petService_id")

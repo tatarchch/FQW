@@ -21,11 +21,8 @@ import java.util.Optional;
 public class MasterService {
 
     private final MasterRepository masterRepository;
-
     private final MasterMapper masterMapper;
-
     private final PlaceRepository placeRepository;
-
     private final PetServiceRepository petServiceRepository;
 
     public List<MasterDto> getAll() {
@@ -56,7 +53,6 @@ public class MasterService {
     }
 
     public List<MasterDto> getMastersByPlaceIdAndServiceId(Long placeId, Long serviceId) {
-        //mastersWithPlace
         return placeRepository.findById(placeId)
                 .map(masterRepository::findAllByPlace)
                 .map(masters -> petServiceRepository.findById(serviceId)
@@ -86,44 +82,5 @@ public class MasterService {
                 .map(masterMapper::toDTO)
                 .orElseThrow(MasterNotFoundException::new);
     }
-
-    /*public List<MasterDto> getMastersByPlaceIdAndServiceId(Long placeId, Long serviceId) {
-        //mastersWithPlace
-        return this.getMastersByPlaceId(placeId)
-                //сравнение двух массивов
-                .stream()
-                //.distinct()
-                .filter(
-                        //mastersWithLevel
-                        serviceRepository.findById(serviceId)
-                                .map(com.example.FQW.entity.Service::getLevel)
-                                .map(masterRepository::findAllByLevelGreaterThanEqual)
-                                .map(masters -> masters.stream()
-                                        .map(masterMapper::toDTO)
-                                        .toList())
-                                .orElseThrow(ServiceNotFoundException::new)
-
-                                ::contains)
-                .toList();
-
-    }*/
-
-    /*public List<MasterDto> getMastersByPlaceIdAndServiceId(Long placeId, Long serviceId) {
-        List<MasterDto> mastersWithPlaces = this.getMastersByPlaceId(placeId);
-
-        List<MasterDto> mastersWithLevel = serviceRepository.findById(serviceId)
-                .map(com.example.FQW.entity.Service::getLevel)
-                .map(masterRepository::findAllByLevelGreaterThanEqual)
-                .map(masters -> masters.stream()
-                        .map(masterMapper::toDTO)
-                        .toList())
-                .orElseThrow(ServiceNotFoundException::new);
-
-        return mastersWithPlaces.stream()
-                .distinct()
-                .filter(mastersWithLevel::contains)
-                .toList();
-
-    }*/
 
 }

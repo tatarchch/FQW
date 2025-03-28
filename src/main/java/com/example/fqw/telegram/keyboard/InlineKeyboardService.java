@@ -18,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class InlineKeyboardService {
 
     PlaceService placeService;
@@ -118,7 +118,6 @@ public class InlineKeyboardService {
     }
 
     public InlineKeyboardMarkup getInlineMessageButtonsForDate(Long masterId) {
-        //List<CalendarDto> calendarList = calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(masterId, LocalDate.now());
         List<CalendarDto> calendarList = calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(masterId);
 
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();

@@ -2,6 +2,7 @@ package com.example.fqw.service;
 
 import com.example.fqw.dto.ClientDto;
 import com.example.fqw.entity.Client;
+import com.example.fqw.enums.RolesEnum;
 import com.example.fqw.exception.ClientAlreadyExistsException;
 import com.example.fqw.exception.ClientNotFoundException;
 import com.example.fqw.mapper.ClientMapperImpl;
@@ -34,12 +35,6 @@ class ClientServiceTest {
     @InjectMocks
     private ClientService clientService;
 
-
-    /*@BeforeEach
-    void init() {
-        this.clientService = new ClientService(clientRepository, clientMapper);
-    }*/
-
     @Test
     void getAllUsersTestSuccess() {
 
@@ -51,7 +46,7 @@ class ClientServiceTest {
         var clientDto2 = this.getClientDto(null, "login2", "password2", null, null);
         var clientDto3 = this.getClientDto(null, "login3", "password3", null, null);
 
-        when(clientRepository.findAll()).thenReturn(List.of(client1, client2, client3));
+        when(clientRepository.findAllByRole(RolesEnum.USER.getRole())).thenReturn(List.of(client1, client2, client3));
         when(clientMapper.toDTO(any(Client.class))).thenCallRealMethod();
 
         assertIterableEquals(List.of(clientDto1, clientDto2, clientDto3), clientService.getAllUsers());
@@ -60,20 +55,19 @@ class ClientServiceTest {
 
     @Test
     void getAllUsersTestFailed() {
-        when(clientRepository.findAll()).thenReturn(Collections.emptyList());
+        when(clientRepository.findAllByRole(any(String.class))).thenReturn(Collections.emptyList());
 
         assertTrue(clientService.getAllUsers().isEmpty());
     }
 
     @Test
-        //?
     void getClientByIdTestSuccess() {
         var clientId = 1L;
 
         var client = this.getClientEntity(clientId, null, null, null, null);
         var clientDto = this.getClientDto(clientId, null, null, null, null);
 
-        when(clientRepository.findById(clientId)).thenReturn(Optional.of(client));
+        when(clientRepository.findByIdAndRole(clientId, RolesEnum.USER.getRole())).thenReturn(Optional.of(client));
         when(clientMapper.toDTO(client)).thenCallRealMethod();
 
         assertEquals(clientDto, clientService.getClientById(clientId));
@@ -83,7 +77,7 @@ class ClientServiceTest {
     void getClientByIdTestFailed() {
         var id = 1L;
 
-        when(clientRepository.findById(id)).thenReturn(Optional.empty());
+        when(clientRepository.findByIdAndRole(id, RolesEnum.USER.getRole())).thenReturn(Optional.empty());
         verifyNoInteractions(clientMapper);
 
         assertThrows(ClientNotFoundException.class, () -> clientService.getClientById(id));
@@ -96,7 +90,7 @@ class ClientServiceTest {
         var client = this.getClientEntity(null, login, null, null, null);
         var clientDto = this.getClientDto(null, login, null, null, null);
 
-        when(clientRepository.findClientByLogin(login)).thenReturn(Optional.of(client));
+        when(clientRepository.findClientByLoginAndRole(login, RolesEnum.USER.getRole())).thenReturn(Optional.of(client));
         when(clientMapper.toDTO(client)).thenCallRealMethod();
 
         assertEquals(clientDto, clientService.getClientByLogin(login));
@@ -106,14 +100,13 @@ class ClientServiceTest {
     void getClientByLoginTestFailed() {
         var login = "login";
 
-        when(clientRepository.findClientByLogin(login)).thenReturn(Optional.empty());
+        when(clientRepository.findClientByLoginAndRole(login, RolesEnum.USER.getRole())).thenReturn(Optional.empty());
 
         verifyNoInteractions(clientMapper);
         verify(clientMapper, times(0)).toDTO(any(Client.class));
 
         assertThrows(ClientNotFoundException.class, () -> clientService.getClientByLogin(login));
     }
-
 
     @Test
     void getClientByLoginAndPasswordSuccess() {
@@ -123,10 +116,9 @@ class ClientServiceTest {
         var client = this.getClientEntity(null, login, password, null, null);
         var expectedClientDto = this.getClientDto(null, login, password, null, null);
 
-        when(clientRepository.findClientByLogin(login)).thenReturn(Optional.of(client));
-        //when(encoder.encode(password)).thenReturn(password);
-        when(encoder.matches(password, password)).thenReturn(true);
-        when(clientMapper.toDTO(client)).thenCallRealMethod();
+        when(clientRepository.findClientByLoginAndRole(login,RolesEnum.USER.getRole())).thenReturn(Optional.of(client));
+        when(encoder.matches(client.getPassword(), password)).thenReturn(true);
+        when(clientMapper.toDTO(client)).thenReturn(expectedClientDto);
 
         assertEquals(expectedClientDto, clientService.getClientByLoginAndPassword(login, password));
     }
@@ -193,7 +185,6 @@ class ClientServiceTest {
         assertEquals(clientDto, clientService.botLogin(chatId, userName));
     }
 
-
     private Client getClientEntity(Long clientId,
                                    String login,
                                    String password,
@@ -207,7 +198,6 @@ class ClientServiceTest {
         client.setChatId(chatId);
         return client;
     }
-
 
     private ClientDto getClientDto(Long clientId,
                                    String login,

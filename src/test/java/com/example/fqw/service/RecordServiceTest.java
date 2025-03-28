@@ -24,29 +24,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
-//@SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class RecordServiceTest {
-    //@MockBean
     @Mock
     private RecordRepository recordRepository;
-    //@Autowired
     @Mock
     private RecordMapperImpl recordMapper;
-    //@MockBean
     @Mock
     private MasterRepository masterRepository;
 
-    /*@Autowired
-    private ClientMapperImpl clientMapper;
-    @Autowired
-    private PlaceMapperImpl placeMapper;
-    @Autowired
-    private MasterMapperImpl masterMapper;
-    @Autowired
-    private PetServiceMapperImpl petServiceMapper;*/
-
-    //@Autowired
     @InjectMocks
     private RecordService recordService;
 
@@ -199,28 +185,20 @@ class RecordServiceTest {
     private List<Record> getFullRecordList(Master master) {
         List<Record> recordList = new ArrayList<>();
 
-        recordList.add(this.getRecordEntity(1L,"09:00-10:00", master));
-        recordList.add(this.getRecordEntity(2L,"10:00-11:00", master));
-        recordList.add(this.getRecordEntity(3L,"11:00-12:00", master));
-        recordList.add(this.getRecordEntity(4L,"12:00-13:00", master));
-        recordList.add(this.getRecordEntity(5L,"13:00-14:00", master));
-        recordList.add(this.getRecordEntity(6L,"14:00-15:00", master));
-        recordList.add(this.getRecordEntity(7L,"15:00-16:00", master));
-        recordList.add(this.getRecordEntity(8L,"16:00-17:00", master));
-        recordList.add(this.getRecordEntity(9L,"17:00-18:00", master));
-        recordList.add(this.getRecordEntity(10L,"18:00-19:00", master));
-        recordList.add(this.getRecordEntity(11L,"19:00-20:00", master));
-        recordList.add(this.getRecordEntity(12L,"20:00-21:00", master));
+        recordList.add(this.getRecordEntity(1L, "09:00-10:00", master));
+        recordList.add(this.getRecordEntity(2L, "10:00-11:00", master));
+        recordList.add(this.getRecordEntity(3L, "11:00-12:00", master));
+        recordList.add(this.getRecordEntity(4L, "12:00-13:00", master));
+        recordList.add(this.getRecordEntity(5L, "13:00-14:00", master));
+        recordList.add(this.getRecordEntity(6L, "14:00-15:00", master));
+        recordList.add(this.getRecordEntity(7L, "15:00-16:00", master));
+        recordList.add(this.getRecordEntity(8L, "16:00-17:00", master));
+        recordList.add(this.getRecordEntity(9L, "17:00-18:00", master));
+        recordList.add(this.getRecordEntity(10L, "18:00-19:00", master));
+        recordList.add(this.getRecordEntity(11L, "19:00-20:00", master));
+        recordList.add(this.getRecordEntity(12L, "20:00-21:00", master));
 
         return recordList;
     }
 
-    /*@Test
-    void addRecordTestSuccess() {
-
-    }
-
-    @Test
-    void addRecordTestFailed() {
-    }*/
 }

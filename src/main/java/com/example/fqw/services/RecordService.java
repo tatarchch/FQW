@@ -24,7 +24,6 @@ public class RecordService {
     private final MasterRepository masterRepository;
     private final RecordMapper recordMapper;
 
-
     public List<RecordDto> getAll() {
         return recordRepository.findAll().stream()
                 .map(recordMapper::toDTO)
@@ -37,15 +36,6 @@ public class RecordService {
                 .orElseThrow(RecordException::new);
     }
 
-    /*public List<String> getTimingByMasterAndDate(Long masterId, LocalDate date) {
-        return masterRepository.findById(masterId)
-                .map(master -> recordRepository.findAllByMasterAndDate(master, date).stream()
-                        .map(Record::getTiming)
-                        .toList())
-                .map(timingList -> DateTimeUtils.getFreeTimingList(timingList, date))
-                .orElseThrow(RecordException::new);
-    }*/
-
     public List<String> getTimingsByMasterAndDate(Long masterId, LocalDate date) {
         return masterRepository.findById(masterId)
                 .map(master -> recordRepository.findAllByMasterAndDate(master, date).stream()
@@ -55,31 +45,14 @@ public class RecordService {
                 .orElseThrow(MasterNotFoundException::new);
     }
 
-    /*public List<String> getUserChatForNotification() {
-        String timing = LocalTime.now().plusHours(1L).getHour() + ":00"
-                + "-"
-                + LocalTime.now().plusHours(2L).getHour() + ":00";
-        return recordRepository
-                .findAllByDateAndTiming(LocalDate.now(), timing)
-                .stream()
-                .map(Record::getClient)
-                .map(Client::getChatId)
-                .toList();
-    }*/
-
     public RecordDto confirm(RecordDto recordDto) {
         return Optional.of(recordDto)
                 .map(recordMapper::toEntity)
-                /*.map(record -> {
-                    record.setStatus("created"); //did it in the mapper
-                    return record;
-                })*/
                 .map(recordRepository::save)
                 .map(recordMapper::toDTO)
                 .orElseThrow(RecordException::new);
     }
 
-    //?
     public RecordDto addNewRecord(RecordDto recordDto) {
         return Optional.of(recordDto)
                 .map(recordMapper::toEntity)
@@ -87,23 +60,5 @@ public class RecordService {
                 .map(recordMapper::toDTO)
                 .orElseThrow(OtherException::new);
     }
-
-    /*public RecordDto cancelRecordById(Long id) {
-        return recordRepository.findById(id)
-                .map(this::fillCanceledRecord)
-                .map(recordRepository::save)
-                .map(recordMapper::toDTO)
-                .orElseThrow(OtherException::new);
-    }
-
-
-    public RecordDto doneRecordById(Long id) {
-        return recordRepository.findById(id)
-                .map(this::fillCanceledRecord)
-                .map(recordRepository::save)
-                .map(recordMapper::toDTO)
-                .orElseThrow(OtherException::new);
-    }*/
-
 
 }

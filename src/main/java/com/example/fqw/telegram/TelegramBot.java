@@ -1,8 +1,8 @@
 package com.example.fqw.telegram;
 
 import com.example.fqw.dto.RecordDto;
-import com.example.fqw.exception.TelegramUserNotFound;
 import com.example.fqw.enums.BotMessageEnum;
+import com.example.fqw.exception.TelegramUserNotFound;
 import com.example.fqw.telegram.handler.CallbackQueryHandler;
 import com.example.fqw.telegram.handler.MessageHandler;
 import lombok.Setter;
@@ -23,6 +23,7 @@ public class TelegramBot extends TelegramLongPollingBot {
 
     private final CallbackQueryHandler callbackQueryHandler;
     private final MessageHandler messageHandler;
+
     private HashMap<String, RecordDto> recordMap = new HashMap<>();
 
     public TelegramBot(@Value("${bot.token}") String botToken,

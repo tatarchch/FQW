@@ -5,13 +5,12 @@ import com.example.fqw.api.PlaceControllerInterface;
 import com.example.fqw.dto.PlaceDto;
 import com.example.fqw.services.PlaceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-//@SecurityRequirement(name = "basicAuth")
 public class PlaceControllerImpl implements PlaceControllerInterface {
 
     private final PlaceService placeService;
@@ -35,15 +34,5 @@ public class PlaceControllerImpl implements PlaceControllerInterface {
     public void deletePlaceById(Long id) {
         placeService.deletePlaceById(id);
     }
-
-    /*@PostMapping("/pickPlace/{placeId}")
-    public PreOrderDto pickPlace(@PathVariable("placeId") Long placeId, @RequestBody PreOrderDto preOrderDto){
-        return placeService.pickPlace(placeId, preOrderDto);
-    }*/
-
-    /*@GetMapping("/getById/{id}")
-    public PlaceDto getById(@PathVariable("id") Long id) {
-        return placeService.getById(id);
-    }*/
 
 }

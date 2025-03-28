@@ -1,7 +1,9 @@
 package com.example.fqw.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +11,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-/*@AllArgsConstructor
-@NoArgsConstructor*/
 @RequiredArgsConstructor
 @Table(name = "place", schema = "prod")
 public class Place {
@@ -30,9 +30,5 @@ public class Place {
 
     @OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
     private List<Master> masters = new ArrayList<>();
-
-    /*@OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
-    private List<Record> records = new ArrayList<>();*/
-
 
 }

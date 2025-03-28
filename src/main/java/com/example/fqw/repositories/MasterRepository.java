@@ -13,12 +13,8 @@ public interface MasterRepository extends JpaRepository<Master, Long> {
 
     List<Master> findAllByPlace(Place place);
 
-    List<Master> findAllByLevelGreaterThanEqual(Integer level);
-
     List<Master> findAllByIdIn(List<Long> mastersId);
 
-    Optional <Master> findMasterByName(String name);
-
-
+    Optional<Master> findMasterByName(String name);
 
 }
