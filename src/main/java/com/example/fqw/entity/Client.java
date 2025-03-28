@@ -9,8 +9,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-/*@AllArgsConstructor
-@NoArgsConstructor*/
 @RequiredArgsConstructor
 @Table(name = "client", schema = "prod")
 public class Client {
@@ -21,12 +19,6 @@ public class Client {
 
     @Column(name = "name")
     private String name;
-
-    /*@Column(name = "surname")
-    private String surname;*/
-
-    /*@Column(name = "patronymic")
-    private String patronymic;*/
 
     @Column(name = "login", unique = true)
     private String login;
@@ -43,16 +35,7 @@ public class Client {
     @Column(name = "role")
     private String role;
 
-
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private List<Record> records = new ArrayList<>();
-
-    /*@ElementCollection(fetch= FetchType.EAGER)
-    @CollectionTable(
-            name="roles",
-            joinColumns = @JoinColumn(name="client_id")
-    )
-    @Column(name="client_role")
-    private List<String> roles;*/
 
 }

@@ -176,9 +176,7 @@ class MasterServiceTest {
         var masterDto = this.getMasterDto(1L, null, null);
 
         when(masterMapper.toEntity(masterDto)).thenCallRealMethod();
-        //when(masterRepository.save(any(Master.class))).thenThrow(MasterAlreadyExistsException.class);
         when(masterRepository.save(any(Master.class))).thenReturn(null);
-        //when(masterMapper.toDTO(any(Master.class))).thenCallRealMethod();
 
         assertThrows(MasterAlreadyExistsException.class, () -> masterService.addNewMaster(masterDto));
 
@@ -209,7 +207,6 @@ class MasterServiceTest {
 
         verifyNoInteractions(masterMapper);
     }
-
 
     private Master getMasterEntity(Long masterId,
                                    String name,

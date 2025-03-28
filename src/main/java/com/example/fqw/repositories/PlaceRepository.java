@@ -9,6 +9,6 @@ import java.util.Optional;
 @Repository
 public interface PlaceRepository extends JpaRepository<Place, Long> {
 
-   Optional <Place> findPlaceByName(String name);
+    Optional<Place> findPlaceByName(String name);
 
 }

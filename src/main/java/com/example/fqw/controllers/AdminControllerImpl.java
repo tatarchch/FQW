@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@SecurityRequirement(name = "basicAuth")
 public class AdminControllerImpl implements AdminControllerInterface {
 
     private final AdminService adminService;

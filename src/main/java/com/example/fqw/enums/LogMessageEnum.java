@@ -32,4 +32,5 @@ public enum LogMessageEnum {
     CANCEL("Пользователь %s отменил запись");
 
     private final String text;
+
 }

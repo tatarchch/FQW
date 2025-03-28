@@ -8,9 +8,7 @@ import com.example.fqw.exception.MasterNotFoundException;
 import com.example.fqw.mapper.CalendarMapper;
 import com.example.fqw.repositories.CalendarRepository;
 import com.example.fqw.repositories.MasterRepository;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,12 +18,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class CalendarService {
 
-    CalendarRepository calendarRepository;
-    MasterRepository masterRepository;
-    CalendarMapper calendarMapper;
+    private final CalendarRepository calendarRepository;
+    private final MasterRepository masterRepository;
+    private final CalendarMapper calendarMapper;
 
     public List<CalendarDto> getAllCalendars() {
         return calendarRepository.findAll().stream()
@@ -47,11 +44,6 @@ public class CalendarService {
 
     public void deleteCalendarById(Long id) {
         calendarRepository.deleteById(id);
-    }
-
-    public void deleteCalendarByDate(LocalDate date) {
-        calendarRepository.delete(calendarRepository.findCalendarByDate(date)
-                .orElseThrow(CalendarNotFoundIdException::new));
     }
 
     public CalendarDto addCalendar(List<Long> mastersId, Long calendarId) {
@@ -79,16 +71,6 @@ public class CalendarService {
                 .map(calendarMapper::toDTO)
                 .toList();
     }
-
-    /*public List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(Long masterId, LocalDate date) {
-       return masterRepository.findById(masterId)
-               .map(master -> calendarRepository.findAllByMastersInAndDateGreaterThanEqual(List.of(master), date))
-               .map(calendars -> calendars.stream()
-                       .map(calendarMapper::toDTO)
-                       .toList())
-               .orElseThrow(MasterNotFoundException::new);
-
-    }*/
 
     public List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(Long masterId) {
         return masterRepository.findById(masterId)

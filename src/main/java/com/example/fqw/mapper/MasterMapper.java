@@ -9,9 +9,9 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface MasterMapper {
 
-    MasterDto toDTO(Master master);
-
     Master toEntity(MasterDto masterDto);
+
+    MasterDto toDTO(Master master);
 
     default Master inactivateMaster(Master master) {
         master.setActive(false);

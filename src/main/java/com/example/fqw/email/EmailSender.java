@@ -1,18 +1,15 @@
 package com.example.fqw.email;
 
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class EmailSender {
 
-    JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
 
     public void sendEmail(EmailMessage emailMessage) {
 

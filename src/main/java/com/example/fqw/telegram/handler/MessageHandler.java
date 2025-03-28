@@ -20,7 +20,7 @@ import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class MessageHandler {
 
     ClientService clientService;
@@ -31,8 +31,7 @@ public class MessageHandler {
 
     public SendMessage answerMessage(Message message, Map<String, RecordDto> recordMap) {
         SendMessage sendMessage = new SendMessage();
-            ButtonNameEnum command = ButtonNameEnum.getByValue(message.getText());
-
+        ButtonNameEnum command = ButtonNameEnum.getByValue(message.getText());
 
 
         switch (command) {

@@ -3,8 +3,8 @@ package com.example.fqw.services;
 import com.example.fqw.dto.PetServiceDto;
 import com.example.fqw.entity.Master;
 import com.example.fqw.exception.MasterNotFoundException;
-import com.example.fqw.exception.PetServiceNotFoundException;
 import com.example.fqw.exception.OtherException;
+import com.example.fqw.exception.PetServiceNotFoundException;
 import com.example.fqw.mapper.PetServiceMapper;
 import com.example.fqw.repositories.MasterRepository;
 import com.example.fqw.repositories.PetServiceRepository;
@@ -17,14 +17,11 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class    PetServiceService {
+public class PetServiceService {
 
     private final PetServiceRepository petServiceRepository;
-
     private final PetServiceMapper petServiceMapper;
-
     private final MasterRepository masterRepository;
-
 
     public List<PetServiceDto> getAll() {
         return petServiceRepository.findAll().stream()
@@ -65,9 +62,5 @@ public class    PetServiceService {
     public void deleteServiceById(Long id) {
         petServiceRepository.deleteById(id);
     }
-
-    /*public PreOrderDto pickService(Long serviceId, PreOrderDto preOrderDto) {
-        return preOrderService.callService(serviceId, preOrderDto);
-    }*/
 
 }

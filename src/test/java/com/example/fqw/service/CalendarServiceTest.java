@@ -199,7 +199,6 @@ class CalendarServiceTest {
         assertEquals(calendarDtoList, calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(masterId));
     }
 
-
     private Calendar getCalendarEntity(Long calendarId, List<Master> masters, LocalDate date) {
         var calendar = new Calendar();
         calendar.setId(calendarId);
@@ -207,7 +206,6 @@ class CalendarServiceTest {
         calendar.setDate(date);
         return calendar;
     }
-
 
     private CalendarDto getCalendarDto(Long id, LocalDate date) {
         var calendarDto = new CalendarDto();

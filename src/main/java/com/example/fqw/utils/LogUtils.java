@@ -7,8 +7,8 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
-@Slf4j
 @UtilityClass
+@Slf4j
 public class LogUtils {
 
     public void loginLog(String userName) {
@@ -71,7 +71,7 @@ public class LogUtils {
     }
 
     public void getErrorLogForExceptionHandler(Exception exception) {
-        log.error(exception.getMessage(), exception); //exception.getMessage()
+        log.error(exception.getMessage(), exception);
     }
 
 }

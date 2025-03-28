@@ -12,7 +12,7 @@ public enum ClassNameForSaveExceptionHandler {
     CLIENT_CONTROLLER("ClientControllerImpl"),
     PLACE_CONTROLLER("PlaceControllerImpl"),
     CALENDAR_CONTROLLER("CalendarControllerImpl"),
-    PETSERVICE_CONTROLLER("PetServiceControllerImpl"),
+    PET_SERVICE_CONTROLLER("PetServiceControllerImpl"),
     MASTER_CONTROLLER("MasterControllerImpl"),
     RECORD_CONTROLLER("RecordControllerImpl");
 
@@ -24,4 +24,5 @@ public enum ClassNameForSaveExceptionHandler {
     }
 
     private final String className;
+
 }

@@ -3,14 +3,12 @@ package com.example.fqw.services;
 import com.example.fqw.dto.RecordDto;
 import com.example.fqw.email.EmailMessage;
 import com.example.fqw.email.EmailSender;
+import com.example.fqw.enums.BotMessageEnum;
 import com.example.fqw.mapper.RecordMapper;
 import com.example.fqw.repositories.RecordRepository;
 import com.example.fqw.telegram.TelegramBot;
-import com.example.fqw.enums.BotMessageEnum;
 import com.example.fqw.utils.DateTimeUtils;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -20,16 +18,14 @@ import java.time.LocalTime;
 import java.util.List;
 
 @Service
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @RequiredArgsConstructor
 public class NotificationService {
 
-    RecordRepository recordRepository;
-    RecordMapper recordMapper;
-    TelegramBot telegramBot;
-    EmailSender emailSender;
+    private final RecordRepository recordRepository;
+    private final RecordMapper recordMapper;
+    private final TelegramBot telegramBot;
+    private final EmailSender emailSender;
 
-    //cron = "seconds minutes hours dayOfMonth(number) month dayOfWeek"
     @Scheduled(cron = "00 00 8-20 * * *")
     public void sendNotificationMessage() {
         String timing = DateTimeUtils.getNotificationTiming(LocalTime.now());

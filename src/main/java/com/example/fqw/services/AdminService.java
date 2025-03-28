@@ -16,26 +16,17 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class AdminService {
 
-    ClientRepository clientRepository;
-    ClientMapper clientMapper;
-    PasswordEncoder encoder;
+    private final ClientRepository clientRepository;
+    private final ClientMapper clientMapper;
+    private final PasswordEncoder encoder;
 
     public List<ClientDto> getAllAdmins() {
         return clientRepository.findAllByRole(RolesEnum.ADMIN.getRole()).stream()
                 .map(clientMapper::toDTO)
                 .toList();
     }
-
-    /*public AdminDto addNewAdmin(AdminDto adminDto) {
-        return Optional.of(adminDto)
-                .map(adminMapper::toEntity)
-                .map(adminRepository::save)
-                .map(adminMapper::toDTO)
-                .orElseThrow(OtherException::new);
-    }*/
 
     public ClientDto addNewAdmin(ClientDto clientDto) {
         return Optional.of(clientDto)

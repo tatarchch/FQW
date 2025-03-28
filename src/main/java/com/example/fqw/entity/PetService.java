@@ -1,7 +1,9 @@
 package com.example.fqw.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +11,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-/*@AllArgsConstructor
-@NoArgsConstructor*/
 @RequiredArgsConstructor
 @Table(name = "pet_service", schema = "prod")
 public class PetService {
@@ -33,6 +33,5 @@ public class PetService {
 
     @OneToMany(mappedBy = "petService", fetch = FetchType.LAZY)
     private List<Record> records = new ArrayList<>();
-
 
 }
