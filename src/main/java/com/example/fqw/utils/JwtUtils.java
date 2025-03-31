@@ -64,7 +64,7 @@ public class JwtUtils {
     }
 
     public List<SimpleGrantedAuthority> castJwtAuthority(Claims claims) {
-        List<String> roles = claims.get("role", List.class); //вынести в ту утилку и вернуть лист стрингов а не клейм
+        List<String> roles = claims.get("role", List.class);
 
         List<SimpleGrantedAuthority> simpleRoles = roles.stream()
                 .map(SimpleGrantedAuthority::new)
