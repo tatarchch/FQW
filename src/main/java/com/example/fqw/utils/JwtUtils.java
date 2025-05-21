@@ -1,7 +1,6 @@
 package com.example.fqw.utils;
 
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -17,10 +16,9 @@ import java.util.List;
 @Slf4j
 public class JwtUtils {
 
-    private final String jwtSecret = "aStringYouWantToWriteButItNeedToBeLongestPossible";
-    private final int jwtExpirationMs = 600000;
+    private final int jwtExpirationMs = 36 * (int) Math.pow(10, 5);
 
-    private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+    private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(Jwts.SIG.HS512.key().build().getEncoded());
 
     public String generateJwtToken(Authentication authentication) {
 
@@ -41,7 +39,7 @@ public class JwtUtils {
                 .compact();
     }
 
-    public Claims validateJweToken(String authToken) {
+    public Claims validateJwtToken(String authToken) {
         try {
             return Jwts.parser()
                     .verifyWith(SECRET_KEY)

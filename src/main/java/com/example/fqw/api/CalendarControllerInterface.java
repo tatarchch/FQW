@@ -20,8 +20,8 @@ public interface CalendarControllerInterface {
     @GetMapping("/getByDate/{date}")
     CalendarDto getCalendarByDate(@PathVariable("date") LocalDate date);
 
-    @GetMapping("/getByMasterInAndDateGreaterThanEqual/{calendarId}")
-    List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(@PathVariable("calendarId") Long calendarId);
+    @GetMapping("/getByMasterInAndDateGreaterThanEqual/{masterId}")
+    List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(@PathVariable("masterId") Long calendarId);
 
     @DeleteMapping("/deleteById/{calendarId}")
     void deleteCalendarById(@PathVariable("calendarId") Long calendarId);

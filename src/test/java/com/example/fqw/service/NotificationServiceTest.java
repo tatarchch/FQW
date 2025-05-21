@@ -1,10 +1,11 @@
 package com.example.fqw.service;
 
 import com.example.fqw.dto.*;
-import com.example.fqw.email.EmailSender;
-import com.example.fqw.entity.*;
+import com.example.fqw.entity.Client;
+import com.example.fqw.entity.Master;
+import com.example.fqw.entity.PetService;
 import com.example.fqw.entity.Record;
-import com.example.fqw.mapper.*;
+import com.example.fqw.mapper.RecordMapperImpl;
 import com.example.fqw.repositories.RecordRepository;
 import com.example.fqw.services.NotificationService;
 import com.example.fqw.telegram.TelegramBot;
@@ -29,8 +30,6 @@ class NotificationServiceTest {
     private RecordMapperImpl recordMapper;
     @Mock
     private TelegramBot telegramBot;
-    @Mock
-    private EmailSender emailSender;
 
     @InjectMocks
     private NotificationService notificationService;

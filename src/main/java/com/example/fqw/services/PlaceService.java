@@ -1,6 +1,7 @@
 package com.example.fqw.services;
 
 import com.example.fqw.dto.PlaceDto;
+import com.example.fqw.exception.PlaceAlreadyExistsException;
 import com.example.fqw.exception.PlaceNotFoundException;
 import com.example.fqw.mapper.PlaceMapper;
 import com.example.fqw.repositories.PlaceRepository;
@@ -26,7 +27,7 @@ public class PlaceService {
     public PlaceDto getPlaceById(Long id) {
         return placeRepository.findById(id)
                 .map(placeMapper::toDTO)
-                .orElseThrow(PlaceNotFoundException::new);
+                .orElseThrow(() -> new PlaceNotFoundException(id));
     }
 
     public PlaceDto addNew(PlaceDto placeDto) {
@@ -34,13 +35,13 @@ public class PlaceService {
                 .map(placeMapper::toEntity)
                 .map(placeRepository::save)
                 .map(placeMapper::toDTO)
-                .orElseThrow();
+                .orElseThrow(() -> new PlaceAlreadyExistsException(placeDto));
     }
 
     public PlaceDto getPlaceByName(String name) {
         return placeRepository.findPlaceByName(name)
                 .map(placeMapper::toDTO)
-                .orElseThrow(PlaceNotFoundException::new);
+                .orElseThrow(() -> new PlaceNotFoundException(name));
     }
 
     public void deletePlaceById(Long id) {

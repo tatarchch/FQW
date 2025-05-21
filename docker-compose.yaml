@@ -1,20 +1,61 @@
 services:
-  app:
+
+  fqw:
+    container_name: fqw
     image: fqw
     build:
       context: .
     depends_on:
       db:
         condition: service_healthy
+      kafka:
+        condition: service_healthy
     environment:
+      #LC_ALL: ${LC_ALL}
+      TZ: ${TZ}
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+
+      JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8 -Duser.language=ru -Duser.country=RU
+
     ports:
       - 8181:8181
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8181/actuator/health || exit 1" ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  notification:
+    container_name: fqw_notification
+    image: notification
+    build:
+      context: ../notificationService
+    depends_on:
+      kafka:
+        condition: service_healthy
+    environment:
+      #LC_ALL: ${LC_ALL}
+      TZ: ${TZ}
+
+      JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8 -Duser.language=ru -Duser.country=RU
+    ports:
+      - 8282:8282
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:8282/actuator/health || exit 1" ]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+
   db:
+    container_name: fwq_postgres
     image: postgres
     environment:
+      TZ: ${TZ}
+      PGTZ: ${TZ}
+      #LC_ALL: ${LC_ALL}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
@@ -25,3 +66,38 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  kafka:
+    container_name: fqw_kafka
+    image: bitnami/kafka:latest
+    ports:
+      #- 9092:9092    # Основной listener для клиентов внутри Docker
+      - 29092:29092  # External listener для клиентов на хосте
+      #- 9093:9093    # Controller listener для KRaft
+    environment:
+      KAFKA_ENABLE_KRAFT: "yes"
+      KAFKA_CFG_PROCESS_ROLES: "controller, broker"
+      KAFKA_CFG_NODE_ID: 1
+
+      KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
+
+      KAFKA_CFG_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
+      KAFKA_CFG_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:29092"
+      KAFKA_CFG_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092, EXTERNAL://localhost:29092"
+
+      KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT, PLAINTEXT:PLAINTEXT, EXTERNAL:PLAINTEXT"
+      KAFKA_CFG_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
+
+      KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_CFG_NUM_PARTITIONS: 2
+
+      #LC_ALL: ${LC_ALL}
+      TZ: ${TZ}
+    healthcheck:
+      test: [ "CMD-SHELL", "kafka-topics.sh --list --bootstrap-server kafka:9092" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+

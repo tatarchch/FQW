@@ -14,7 +14,7 @@ public interface ClientControllerInterface {
     ClientDto login(@RequestParam("login") String login, @RequestParam("password") String password);
 
     @PostMapping("/registration")
-    ClientDto registration(ClientDto clientDto);
+    ClientDto registration(@RequestBody ClientDto clientDto);
 
     @GetMapping("/getAll")
     List<ClientDto> getAllClients();

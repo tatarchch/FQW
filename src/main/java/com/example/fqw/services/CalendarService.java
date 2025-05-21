@@ -2,8 +2,7 @@ package com.example.fqw.services;
 
 import com.example.fqw.dto.CalendarDto;
 import com.example.fqw.entity.Calendar;
-import com.example.fqw.exception.CalendarNotFoundDateException;
-import com.example.fqw.exception.CalendarNotFoundIdException;
+import com.example.fqw.exception.CalendarNotFoundException;
 import com.example.fqw.exception.MasterNotFoundException;
 import com.example.fqw.mapper.CalendarMapper;
 import com.example.fqw.repositories.CalendarRepository;
@@ -33,13 +32,13 @@ public class CalendarService {
     public CalendarDto getCalendarById(Long id) {
         return calendarRepository.findById(id)
                 .map(calendarMapper::toDTO)
-                .orElseThrow(CalendarNotFoundIdException::new);
+                .orElseThrow(() -> new CalendarNotFoundException(id));
     }
 
     public CalendarDto getCalendarByDate(LocalDate date) {
         return calendarRepository.findCalendarByDate(date)
                 .map(calendarMapper::toDTO)
-                .orElseThrow(CalendarNotFoundDateException::new);
+                .orElseThrow(() -> new CalendarNotFoundException(date));
     }
 
     public void deleteCalendarById(Long id) {
@@ -57,7 +56,7 @@ public class CalendarService {
                     return calendarRepository.save(calendar);
                 })
                 .map(calendarMapper::toDTO)
-                .orElseThrow(CalendarNotFoundIdException::new);
+                .orElseThrow(() -> new CalendarNotFoundException(calendarId));
     }
 
     public CalendarDto addCalendarDay(Integer days) {
@@ -78,7 +77,7 @@ public class CalendarService {
                 .map(calendars -> calendars.stream()
                         .map(calendarMapper::toDTO)
                         .toList())
-                .orElseThrow(MasterNotFoundException::new);
+                .orElseThrow(() -> new MasterNotFoundException(masterId));
 
     }
 

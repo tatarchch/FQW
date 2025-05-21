@@ -24,7 +24,7 @@ public class AuthorizationService {
                         null,
                         user.getAuthorities()
                 ))
-                .orElseThrow(() -> new UsernameNotFoundException("Неверный логин или пароль"));
+                .orElseThrow(() -> new UsernameNotFoundException("Неверный логин '" + login + "' или пароль к нему"));
     }
 
 }

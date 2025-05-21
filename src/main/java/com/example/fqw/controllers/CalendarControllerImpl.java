@@ -32,8 +32,8 @@ public class CalendarControllerImpl implements CalendarControllerInterface {
     }
 
     @Override
-    public List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(Long calendarId) {
-        return calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(calendarId);
+    public List<CalendarDto> getCalendarsByMasterInAndDateGreaterThanEqual(Long masterId) {
+        return calendarService.getCalendarsByMasterInAndDateGreaterThanEqual(masterId);
     }
 
     @Override

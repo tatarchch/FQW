@@ -33,7 +33,7 @@ public class RecordService {
     public RecordDto getById(Long id) {
         return recordRepository.findById(id)
                 .map(recordMapper::toDTO)
-                .orElseThrow(RecordException::new);
+                .orElseThrow(() -> new RecordException(id));
     }
 
     public List<String> getTimingsByMasterAndDate(Long masterId, LocalDate date) {
@@ -42,7 +42,7 @@ public class RecordService {
                         .map(Record::getTiming)
                         .toList())
                 .map(timingList -> DateTimeUtils.getFreeTimingList(timingList, date))
-                .orElseThrow(MasterNotFoundException::new);
+                .orElseThrow(() -> new MasterNotFoundException(masterId));
     }
 
     public RecordDto confirm(RecordDto recordDto) {
@@ -50,7 +50,7 @@ public class RecordService {
                 .map(recordMapper::toEntity)
                 .map(recordRepository::save)
                 .map(recordMapper::toDTO)
-                .orElseThrow(RecordException::new);
+                .orElseThrow(OtherException::new);
     }
 
     public RecordDto addNewRecord(RecordDto recordDto) {
