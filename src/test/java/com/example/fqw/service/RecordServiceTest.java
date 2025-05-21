@@ -4,6 +4,7 @@ import com.example.fqw.dto.RecordDto;
 import com.example.fqw.entity.Master;
 import com.example.fqw.entity.Record;
 import com.example.fqw.exception.MasterNotFoundException;
+import com.example.fqw.exception.OtherException;
 import com.example.fqw.exception.RecordException;
 import com.example.fqw.mapper.RecordMapperImpl;
 import com.example.fqw.repositories.MasterRepository;
@@ -156,7 +157,7 @@ class RecordServiceTest {
         when(recordMapper.toEntity(recordDto)).thenReturn(record);
         when(recordRepository.save(record)).thenReturn(null);
 
-        assertThrows(RecordException.class, () -> recordService.confirm(recordDto));
+        assertThrows(OtherException.class, () -> recordService.confirm(recordDto));
 
         verify(recordMapper, times(0)).toDTO(record);
     }

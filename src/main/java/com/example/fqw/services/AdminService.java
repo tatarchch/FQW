@@ -1,13 +1,11 @@
 package com.example.fqw.services;
 
 import com.example.fqw.dto.ClientDto;
+import com.example.fqw.enums.RolesEnum;
 import com.example.fqw.exception.OtherException;
 import com.example.fqw.mapper.ClientMapper;
 import com.example.fqw.repositories.ClientRepository;
-import com.example.fqw.enums.RolesEnum;
-import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import lombok.experimental.FieldDefaults;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

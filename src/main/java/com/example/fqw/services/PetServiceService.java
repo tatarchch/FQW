@@ -32,7 +32,7 @@ public class PetServiceService {
     public PetServiceDto getServiceById(Long id) {
         return petServiceRepository.findById(id)
                 .map(petServiceMapper::toDTO)
-                .orElseThrow(PetServiceNotFoundException::new);
+                .orElseThrow(() -> new PetServiceNotFoundException(id));
     }
 
     public List<PetServiceDto> getServicesByMasterId(Long masterId) {
@@ -42,13 +42,13 @@ public class PetServiceService {
                 .map(services -> services.stream()
                         .map(petServiceMapper::toDTO)
                         .toList())
-                .orElseThrow(MasterNotFoundException::new);
+                .orElseThrow(() -> new MasterNotFoundException(masterId));
     }
 
     public PetServiceDto getServiceByName(String name) {
         return petServiceRepository.findServiceByName(name)
                 .map(petServiceMapper::toDTO)
-                .orElseThrow(PetServiceNotFoundException::new);
+                .orElseThrow(() -> new PetServiceNotFoundException(name));
     }
 
     public PetServiceDto addNewService(PetServiceDto petServiceDto) {

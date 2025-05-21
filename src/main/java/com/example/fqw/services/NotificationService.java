@@ -1,14 +1,16 @@
 package com.example.fqw.services;
 
+import com.example.fqw.dto.NotificationDto;
 import com.example.fqw.dto.RecordDto;
-import com.example.fqw.email.EmailMessage;
-import com.example.fqw.email.EmailSender;
 import com.example.fqw.enums.BotMessageEnum;
 import com.example.fqw.mapper.RecordMapper;
 import com.example.fqw.repositories.RecordRepository;
 import com.example.fqw.telegram.TelegramBot;
 import com.example.fqw.utils.DateTimeUtils;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -19,14 +21,19 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class NotificationService {
 
     private final RecordRepository recordRepository;
     private final RecordMapper recordMapper;
     private final TelegramBot telegramBot;
-    private final EmailSender emailSender;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
 
-    @Scheduled(cron = "00 00 8-20 * * *")
+    @Value("${kafka.topic.name}")
+    private String kafkaTopicName;
+    private final String kafkaMessId = String.valueOf(1);
+
+    @Scheduled(cron = "${notification.cron}")
     public void sendNotificationMessage() {
         String timing = DateTimeUtils.getNotificationTiming(LocalTime.now());
 
@@ -44,9 +51,13 @@ public class NotificationService {
                 .map(recordDto -> new SendMessage(recordDto.getClientDto().getChatId(), this.getAnswer(recordDto)))
                 .forEach(telegramBot::sendMessage);
 
-        forNotificationEmailList.parallelStream()
-                .map(recordDto -> new EmailMessage(recordDto.getClientDto().getEmail(), this.getAnswer(recordDto)))
-                .forEach(emailSender::sendEmail);
+        if (!forNotificationEmailList.isEmpty()) {
+            NotificationDto notificationDto = new NotificationDto();
+            notificationDto.setRecords(forNotificationEmailList);
+            kafkaTemplate.send(kafkaTopicName, kafkaMessId, notificationDto);
+            log.info(forNotificationEmailList.toString());
+        }
+
     }
 
     private String getAnswer(RecordDto recordDto) {

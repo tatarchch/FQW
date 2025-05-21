@@ -3,8 +3,7 @@ package com.example.fqw.service;
 import com.example.fqw.dto.CalendarDto;
 import com.example.fqw.entity.Calendar;
 import com.example.fqw.entity.Master;
-import com.example.fqw.exception.CalendarNotFoundDateException;
-import com.example.fqw.exception.CalendarNotFoundIdException;
+import com.example.fqw.exception.CalendarNotFoundException;
 import com.example.fqw.mapper.CalendarMapperImpl;
 import com.example.fqw.repositories.CalendarRepository;
 import com.example.fqw.repositories.MasterRepository;
@@ -81,7 +80,7 @@ class CalendarServiceTest {
 
         when(calendarRepository.findById(calendarId)).thenReturn(Optional.empty());
 
-        assertThrows(CalendarNotFoundIdException.class, () -> calendarService.getCalendarById(calendarId));
+        assertThrows(CalendarNotFoundException.class, () -> calendarService.getCalendarById(calendarId));
 
         verifyNoInteractions(calendarMapper);
     }
@@ -105,7 +104,7 @@ class CalendarServiceTest {
 
         when(calendarRepository.findCalendarByDate(date)).thenReturn(Optional.empty());
 
-        assertThrows(CalendarNotFoundDateException.class, () -> calendarService.getCalendarByDate(date));
+        assertThrows(CalendarNotFoundException.class, () -> calendarService.getCalendarByDate(date));
 
         verify(calendarMapper, times(0)).toDTO(any(Calendar.class));
         verifyNoInteractions(calendarMapper);
@@ -140,7 +139,7 @@ class CalendarServiceTest {
 
         when(calendarRepository.findById(calendarId)).thenReturn(Optional.empty());
 
-        assertThrows(CalendarNotFoundIdException.class, () -> calendarService.addCalendar(masterIdList, calendarId));
+        assertThrows(CalendarNotFoundException.class, () -> calendarService.addCalendar(masterIdList, calendarId));
     }
 
     @Test

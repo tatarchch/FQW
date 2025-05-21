@@ -29,8 +29,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         try {
             String jwt = parseJwt(request);
             if (jwt != null) {
-                Authentication authentication = Optional.of(jwt) //authentication v util
-                        .map(JwtUtils::validateJweToken)
+                Authentication authentication = Optional.of(jwt)
+                        .map(JwtUtils::validateJwtToken)
                         .map(claims -> new UsernamePasswordAuthenticationToken(claims.getSubject(),
                                 null,
                                 JwtUtils.castJwtAuthority(claims)))
@@ -39,7 +39,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
         } catch (Exception e) {
-            log.error("Cannot set user authentication: {}", e);
+            log.error("Cannot set user authentication: {}", e.getMessage());
         }
 
         filterChain.doFilter(request, response);

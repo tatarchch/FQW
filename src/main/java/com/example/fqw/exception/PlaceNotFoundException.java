@@ -1,9 +1,13 @@
 package com.example.fqw.exception;
 
-public class PlaceNotFoundException extends RuntimeException{
+public class PlaceNotFoundException extends RuntimeException {
 
-    public PlaceNotFoundException() {
-        super("Место с данным айди не найдено");
+    public PlaceNotFoundException(Long id) {
+        super(String.format("Место с id '%s' не найдено", id));
+    }
+
+    public PlaceNotFoundException(String name) {
+        super(String.format("Место с названем '%s' не найдено", name));
     }
 
 }

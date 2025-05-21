@@ -31,13 +31,13 @@ public class ClientService {
     public ClientDto getClientById(Long id) {
         return clientRepository.findByIdAndRole(id, RolesEnum.USER.getRole())
                 .map(clientMapper::toDTO)
-                .orElseThrow(ClientNotFoundException::new);
+                .orElseThrow(() -> new ClientNotFoundException(id));
     }
 
     public ClientDto getClientByLogin(String login) {
         return clientRepository.findClientByLoginAndRole(login, RolesEnum.USER.getRole())
                 .map(clientMapper::toDTO)
-                .orElseThrow(ClientNotFoundException::new);
+                .orElseThrow(() -> new ClientNotFoundException(login));
     }
 
     public ClientDto getClientByName(String name) {
@@ -50,7 +50,7 @@ public class ClientService {
         return clientRepository.findClientByLoginAndRole(login, RolesEnum.USER.getRole())
                 .filter(client -> encoder.matches(password, client.getPassword()))
                 .map(clientMapper::toDTO)
-                .orElseThrow(ClientNotFoundException::new);
+                .orElseThrow(() -> new ClientNotFoundException(login, password));
     }
 
     public ClientDto registration(ClientDto clientDto) {
@@ -69,7 +69,7 @@ public class ClientService {
                 })
                 .map(clientRepository::save)
                 .map(clientMapper::toDTO)
-                .orElseThrow(ClientAlreadyExistsException::new);
+                .orElseThrow(() -> new ClientAlreadyExistsException(clientDto));
     }
 
     public ClientDto botLogin(String chatId, String userName) {

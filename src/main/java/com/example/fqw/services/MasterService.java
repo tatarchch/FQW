@@ -34,13 +34,13 @@ public class MasterService {
     public MasterDto getById(Long id) {
         return masterRepository.findById(id)
                 .map(masterMapper::toDTO)
-                .orElseThrow(MasterNotFoundException::new);
+                .orElseThrow(() -> new MasterNotFoundException(id));
     }
 
     public MasterDto getMasterByName(String name) {
         return masterRepository.findMasterByName(name)
                 .map(masterMapper::toDTO)
-                .orElseThrow(MasterNotFoundException::new);
+                .orElseThrow(() -> new MasterNotFoundException(name));
     }
 
     public List<MasterDto> getMastersByPlaceId(Long placeId) {
@@ -60,11 +60,11 @@ public class MasterService {
                         .map(level -> masters.stream()
                                 .filter(service -> service.getLevel() >= level)
                                 .toList())
-                        .orElseThrow(PetServiceNotFoundException::new))
+                        .orElseThrow(() -> new PetServiceNotFoundException(serviceId)))
                 .map(master -> master.stream()
                         .map(masterMapper::toDTO)
                         .toList())
-                .orElseThrow(PlaceNotFoundException::new);
+                .orElseThrow(() -> new PlaceNotFoundException(placeId));
     }
 
     public MasterDto addNewMaster(MasterDto masterDto) {
@@ -72,7 +72,7 @@ public class MasterService {
                 .map(masterMapper::toEntity)
                 .map(masterRepository::save)
                 .map(masterMapper::toDTO)
-                .orElseThrow(MasterAlreadyExistsException::new);
+                .orElseThrow(() -> new MasterAlreadyExistsException(masterDto));
     }
 
     public MasterDto inactivateMasterById(Long id) {
@@ -80,7 +80,7 @@ public class MasterService {
                 .map(masterMapper::inactivateMaster)
                 .map(masterRepository::save)
                 .map(masterMapper::toDTO)
-                .orElseThrow(MasterNotFoundException::new);
+                .orElseThrow(() -> new MasterNotFoundException(id));
     }
 
 }

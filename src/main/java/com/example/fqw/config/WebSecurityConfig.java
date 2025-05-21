@@ -5,6 +5,7 @@ import com.example.fqw.security.jwt.AuthEntryPointJwt;
 import com.example.fqw.security.jwt.AuthTokenFilter;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +16,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @RequiredArgsConstructor
@@ -28,9 +31,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
 
     private final AuthEntryPointJwt authEntryPointJwt;
-
     private final AccessDeniedHandlerJwt accessDeniedHandlerJwt;
-
     private final AuthTokenFilter authTokenFilter;
 
     @Bean
@@ -44,9 +45,13 @@ public class WebSecurityConfig {
 
                 .authorizeHttpRequests(auth -> auth.requestMatchers(
                                 "/swagger-ui/**",
+                                "/actuator/health",
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
                                 "/api/v1/client/login",
+
+                                "/api/v1/place/getAll",
+
                                 "/api/v1/client/registration",
                                 "/api/auth/singIn")
                         .permitAll()
@@ -55,7 +60,8 @@ public class WebSecurityConfig {
                                 "/api/v1/master/getMastersByPlaceIdAndServiceLevel/{placeId}/{serviceId}",
                                 "/api/v1/service/getAll",
                                 "/api/v1/service/getByMasterLevel/{masterLevel}",
-                                "/api/v1/place/getAll"
+
+                                "/api/v1/client/kafka"
                         )
                         .hasAnyRole("USER", "ADMIN")
                         .requestMatchers("api/v1/**").hasRole("ADMIN")
@@ -67,5 +73,17 @@ public class WebSecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(5);
+    }
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+        return new WebMvcConfigurer() {
+            @Override
+            public void addCorsMappings(@NonNull CorsRegistry registry) {
+                registry.addMapping("/api/**")
+                        .allowedOriginPatterns("*")
+                        .allowedMethods("*");
+            }
+        };
     }
 }

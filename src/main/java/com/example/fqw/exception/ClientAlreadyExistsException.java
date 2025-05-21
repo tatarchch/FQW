@@ -1,9 +1,11 @@
 package com.example.fqw.exception;
 
+import com.example.fqw.dto.ClientDto;
+
 public class ClientAlreadyExistsException extends RuntimeException {
 
-    public ClientAlreadyExistsException() {
-        super("Пользователь с таким логином уже существует");
+    public ClientAlreadyExistsException(ClientDto clientDto) {
+        super(String.format("Пользователь с логином '%s' уже существует", clientDto.getLogin()));
     }
 
 }
