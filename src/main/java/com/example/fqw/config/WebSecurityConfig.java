@@ -49,9 +49,6 @@ public class WebSecurityConfig {
                                 "/v3/api-docs/**",
                                 "/swagger-ui.html",
                                 "/api/v1/client/login",
-
-                                "/api/v1/place/getAll",
-
                                 "/api/v1/client/registration",
                                 "/api/auth/singIn")
                         .permitAll()
@@ -60,7 +57,7 @@ public class WebSecurityConfig {
                                 "/api/v1/master/getMastersByPlaceIdAndServiceLevel/{placeId}/{serviceId}",
                                 "/api/v1/service/getAll",
                                 "/api/v1/service/getByMasterLevel/{masterLevel}",
-
+                                "/api/v1/place/getAll",
                                 "/api/v1/client/kafka"
                         )
                         .hasAnyRole("USER", "ADMIN")
