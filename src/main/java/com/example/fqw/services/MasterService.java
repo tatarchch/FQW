@@ -31,7 +31,7 @@ public class MasterService {
                 .toList();
     }
 
-    public MasterDto getById(Long id) {
+    public MasterDto getMasterById(Long id) {
         return masterRepository.findById(id)
                 .map(masterMapper::toDTO)
                 .orElseThrow(() -> new MasterNotFoundException(id));

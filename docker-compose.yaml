@@ -11,7 +11,6 @@ services:
       kafka:
         condition: service_healthy
     environment:
-      #LC_ALL: ${LC_ALL}
       TZ: ${TZ}
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
@@ -22,8 +21,29 @@ services:
     ports:
       - 8181:8181
     healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://localhost:8181/actuator/health || exit 1" ]
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8181/actuator/health || exit 1" ]
       interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 60s
+
+  front:
+    container_name: fwq_front
+    image: front
+    build:
+      context: ../front
+    ports:
+      - 5173:5173
+    depends_on:
+      fqw:
+        condition: service_healthy
+    volumes:
+      - ../front:/app
+      - /app/node_modules
+    restart: unless-stopped
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:5173/actuator/health || exit 1" ]
+      interval: 10s
       timeout: 5s
       retries: 3
 
@@ -36,9 +56,7 @@ services:
       kafka:
         condition: service_healthy
     environment:
-      #LC_ALL: ${LC_ALL}
       TZ: ${TZ}
-
       JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8 -Duser.language=ru -Duser.country=RU
     ports:
       - 8282:8282
@@ -55,7 +73,6 @@ services:
     environment:
       TZ: ${TZ}
       PGTZ: ${TZ}
-      #LC_ALL: ${LC_ALL}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
@@ -71,9 +88,7 @@ services:
     container_name: fqw_kafka
     image: bitnami/kafka:latest
     ports:
-      #- 9092:9092    # Основной listener для клиентов внутри Docker
-      - 29092:29092  # External listener для клиентов на хосте
-      #- 9093:9093    # Controller listener для KRaft
+      - 29092:29092
     environment:
       KAFKA_ENABLE_KRAFT: "yes"
       KAFKA_CFG_PROCESS_ROLES: "controller, broker"
@@ -92,12 +107,9 @@ services:
       KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_CFG_NUM_PARTITIONS: 2
 
-      #LC_ALL: ${LC_ALL}
       TZ: ${TZ}
     healthcheck:
       test: [ "CMD-SHELL", "kafka-topics.sh --list --bootstrap-server kafka:9092" ]
       interval: 10s
       timeout: 5s
       retries: 3
-
-

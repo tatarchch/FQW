@@ -63,7 +63,7 @@ public class CallbackQueryHandler {
     }
 
     private SendMessage getPlaceAnswer(String chatId, String userName, String data, Map<String, RecordDto> recordMap) {
-        PlaceDto placeDto = placeService.getPlaceByName(data);
+        PlaceDto placeDto = placeService.getPlaceById(Long.valueOf(data));
 
         RecordDto recordDto = recordMap.get(userName);
         recordDto.setPlaceDto(placeDto);
@@ -80,7 +80,7 @@ public class CallbackQueryHandler {
     }
 
     private SendMessage getMasterAnswer(String chatId, String userName, String data, Map<String, RecordDto> recordMap) {
-        MasterDto masterDto = masterService.getMasterByName(data);
+        MasterDto masterDto = masterService.getMasterById(Long.valueOf(data));
 
         RecordDto recordDto = recordMap.get(userName);
         recordDto.setMasterDto(masterDto);
@@ -97,7 +97,7 @@ public class CallbackQueryHandler {
     }
 
     private SendMessage getServiceAnswer(String chatId, String userName, String data, Map<String, RecordDto> recordMap) {
-        PetServiceDto petServiceDto = petServiceService.getServiceByName(data);
+        PetServiceDto petServiceDto = petServiceService.getServiceById(Long.valueOf(data));
 
         RecordDto recordDto = recordMap.get(userName);
         recordDto.setPetServiceDto(petServiceDto);
@@ -114,7 +114,7 @@ public class CallbackQueryHandler {
     }
 
     public SendMessage getServiceWithMasterAnswer(String chatId, String userName, String data, Map<String, RecordDto> recordMap) {
-        PetServiceDto petServiceDto = petServiceService.getServiceByName(data);
+        PetServiceDto petServiceDto = petServiceService.getServiceById(Long.valueOf(data));
 
         RecordDto recordDto = recordMap.get(userName);
         recordDto.setPetServiceDto(petServiceDto);
@@ -130,7 +130,7 @@ public class CallbackQueryHandler {
     }
 
     public SendMessage getMasterWithServiceAnswer(String chatId, String userName, String data, Map<String, RecordDto> recordMap) {
-        MasterDto masterDto = masterService.getMasterByName(data);
+        MasterDto masterDto = masterService.getMasterById(Long.valueOf(data));
 
         RecordDto recordDto = recordMap.get(userName);
         recordDto.setMasterDto(masterDto);

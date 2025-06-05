@@ -32,7 +32,7 @@ public class MasterControllerImpl implements MasterControllerInterface {
 
     @Override
     public MasterDto getMasterById(Long id) {
-        return masterService.getById(id);
+        return masterService.getMasterById(id);
     }
 
     @Override

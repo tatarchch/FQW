@@ -36,7 +36,7 @@ public class InlineKeyboardService {
                 .map(placeDto -> {
                     InlineKeyboardButton button = new InlineKeyboardButton();
                     button.setText(placeDto.getName());
-                    button.setCallbackData(ButtonNameEnum.GET_PLACE.name() + "/" + placeDto.getName());
+                    button.setCallbackData(ButtonNameEnum.GET_PLACE.name() + "/" + placeDto.getId());
                     return List.of(button);
                 })
                 .toList();
@@ -54,7 +54,7 @@ public class InlineKeyboardService {
                 .map(masterDto -> {
                     InlineKeyboardButton button = new InlineKeyboardButton();
                     button.setText(masterDto.getName());
-                    button.setCallbackData(ButtonNameEnum.GET_MASTER.name() + "/" + masterDto.getName());
+                    button.setCallbackData(ButtonNameEnum.GET_MASTER.name() + "/" + masterDto.getId());
                     return List.of(button);
                 })
                 .toList();
@@ -72,7 +72,7 @@ public class InlineKeyboardService {
                 .map(serviceDto -> {
                     InlineKeyboardButton button = new InlineKeyboardButton();
                     button.setText(serviceDto.getName());
-                    button.setCallbackData(ButtonNameEnum.GET_SERVICE.name() + "/" + serviceDto.getName());
+                    button.setCallbackData(ButtonNameEnum.GET_SERVICE.name() + "/" + serviceDto.getId());
                     return List.of(button);
                 })
                 .toList();
@@ -90,7 +90,7 @@ public class InlineKeyboardService {
                 .map(serviceDto -> {
                     InlineKeyboardButton button = new InlineKeyboardButton();
                     button.setText(serviceDto.getName());
-                    button.setCallbackData(ButtonNameEnum.GET_SERVICE_BY_MASTER.name() + "/" + serviceDto.getName());
+                    button.setCallbackData(ButtonNameEnum.GET_SERVICE_BY_MASTER.name() + "/" + serviceDto.getId());
                     return List.of(button);
                 })
                 .toList();
@@ -108,7 +108,7 @@ public class InlineKeyboardService {
                 .map(masterDto -> {
                     InlineKeyboardButton button = new InlineKeyboardButton();
                     button.setText(masterDto.getName());
-                    button.setCallbackData(ButtonNameEnum.GET_MASTER_BY_SERVICE.name() + "/" + masterDto.getName());
+                    button.setCallbackData(ButtonNameEnum.GET_MASTER_BY_SERVICE.name() + "/" + masterDto.getId());
                     return List.of(button);
                 })
                 .toList();
