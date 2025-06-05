@@ -53,7 +53,7 @@ public class WebSecurityConfig {
                                 "/swagger-ui.html",
                                 "/api/v1/client/login",
                                 "/api/v1/client/registration",
-                                "/api/auth/singIn")
+                                "/api/auth/signIn")
                         .permitAll()
                         .requestMatchers(
                                 "/api/v1/master/getMastersByPlaceId/{placeId}",
@@ -61,7 +61,7 @@ public class WebSecurityConfig {
                                 "/api/v1/service/getAll",
                                 "/api/v1/service/getByMasterLevel/{masterLevel}",
                                 "/api/v1/place/getAll",
-                                "/api/v1/client/kafka"
+                                "/api/v1/calendar/getByMasterInAndDateGreaterThanEqual/{masterId}"
                         )
                         .hasAnyRole("USER", "ADMIN")
                         .requestMatchers("api/v1/**").hasRole("ADMIN")
@@ -78,10 +78,8 @@ public class WebSecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
-        //config.setAllowedOrigins(List.of("*"));
-        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE"));
-        //config.setAllowedMethods(List.of("*"));
+        config.setAllowedOrigins(List.of("*"));
+        config.setAllowedMethods(List.of("*"));
         config.setAllowedHeaders(List.of("*"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

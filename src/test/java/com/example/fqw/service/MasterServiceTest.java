@@ -65,7 +65,7 @@ class MasterServiceTest {
     }
 
     @Test
-    void getByIdTestSuccess() {
+    void getMasterByIdTestSuccess() {
         var masterId = 1L;
 
         var master = this.getMasterEntity(masterId, "Pup", null, null);
@@ -74,14 +74,14 @@ class MasterServiceTest {
         when(masterRepository.findById(masterId)).thenReturn(Optional.of(master));
         when(masterMapper.toDTO(master)).thenCallRealMethod();
 
-        assertEquals(masterDto, masterService.getById(masterId));
+        assertEquals(masterDto, masterService.getMasterById(masterId));
     }
 
     @Test
-    void getByIdTestFailed() {
+    void getMasterByIdTestFailed() {
         when(masterRepository.findById(any(Long.class))).thenReturn(Optional.empty());
 
-        assertThrows(MasterNotFoundException.class, () -> masterService.getById(1L));
+        assertThrows(MasterNotFoundException.class, () -> masterService.getMasterById(1L));
 
         verifyNoInteractions(masterMapper);
     }
