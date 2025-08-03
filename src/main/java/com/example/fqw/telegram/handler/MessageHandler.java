@@ -8,10 +8,11 @@ import com.example.fqw.services.ClientService;
 import com.example.fqw.services.RecordService;
 import com.example.fqw.telegram.keyboard.InlineKeyboardService;
 import com.example.fqw.telegram.keyboard.ReplyKeyboardService;
-import com.example.fqw.utils.LogUtils;
+import com.example.fqw.utils.LogMessageUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -21,6 +22,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class MessageHandler {
 
     ClientService clientService;
@@ -47,7 +49,7 @@ public class MessageHandler {
             default -> {
                 sendMessage.setChatId(String.valueOf(message.getChatId()));
                 sendMessage.setText(BotMessageEnum.EXCEPTION_BAD_BUTTON_NAME_MESSAGE.getMessage());
-                LogUtils.getErrorLogForReplyKeyboard();
+                log.error(LogMessageUtils.getErrorLogMessageForReplyKeyboard());
             }
         }
         return sendMessage;
@@ -64,7 +66,7 @@ public class MessageHandler {
         recordDto.setClientDto(clientDto);
         recordMap.put(userName, recordDto);
 
-        LogUtils.loginLog(userName);
+        log.info(LogMessageUtils.getLoginLogMessage(userName));
 
         SendMessage sendMessage = new SendMessage(chatId, String.format(answer, userName));
         sendMessage.setReplyMarkup(replyKeyboardService.getAfterStartMenuKeyboard());
@@ -141,7 +143,7 @@ public class MessageHandler {
 
         recordMap.remove(userName);
 
-        LogUtils.getConfirmLog(message, recordDto);
+        log.info(LogMessageUtils.getConfirmLogMessage(message, recordDto));
 
         SendMessage sendMessage = new SendMessage(String.valueOf(message.getChatId()), String.format(answer, recordDto));
         sendMessage.setReplyMarkup(replyKeyboardService.getStartMenuKeyboard());
@@ -154,7 +156,7 @@ public class MessageHandler {
         String answer = BotMessageEnum.CANCEL.getMessage();
         recordMap.remove(userName);
 
-        LogUtils.getCancelLog(message, userName);
+        log.info(LogMessageUtils.getCancelLogMessage(message, userName));
 
         SendMessage sendMessage = new SendMessage(String.valueOf(message.getChatId()), answer);
         sendMessage.setReplyMarkup(replyKeyboardService.getStartMenuKeyboard());

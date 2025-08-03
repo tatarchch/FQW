@@ -9,10 +9,11 @@ import com.example.fqw.services.PetServiceService;
 import com.example.fqw.services.PlaceService;
 import com.example.fqw.telegram.keyboard.InlineKeyboardService;
 import com.example.fqw.telegram.keyboard.ReplyKeyboardService;
-import com.example.fqw.utils.LogUtils;
+import com.example.fqw.utils.LogMessageUtils;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.CallbackQuery;
@@ -23,6 +24,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@Slf4j
 public class CallbackQueryHandler {
 
     CalendarService calendarService;
@@ -56,7 +58,7 @@ public class CallbackQueryHandler {
             default -> {
                 sendMessage.setChatId(chatId);
                 sendMessage.setText(BotMessageEnum.EXCEPTION_WHAT_THE_FUCK.getMessage());
-                LogUtils.getErrorLogForInlineKeyboard();
+                log.error(LogMessageUtils.getErrorLogMessageForInlineKeyboard());
             }
         }
         return sendMessage;
@@ -69,7 +71,7 @@ public class CallbackQueryHandler {
         recordDto.setPlaceDto(placeDto);
         recordMap.put(data, recordDto);
 
-        LogUtils.getPlaceLog(userName, placeDto);
+        log.info(LogMessageUtils.getPlaceLogMessage(userName, placeDto));
 
         SendMessage sendMessage = new SendMessage(chatId, String.format(BotMessageEnum.PLACE.getMessage(),
                 placeDto.getName(), placeDto.getAddress()));
@@ -86,7 +88,7 @@ public class CallbackQueryHandler {
         recordDto.setMasterDto(masterDto);
         recordMap.put(data, recordDto);
 
-        LogUtils.getMasterLog(userName, masterDto);
+        log.info(LogMessageUtils.getMasterLogMessage(userName, masterDto));
 
         SendMessage sendMessage = new SendMessage(chatId, String.format(BotMessageEnum.MASTER.getMessage(),
                 masterDto.getName(), masterDto.getLevel()));
@@ -103,7 +105,7 @@ public class CallbackQueryHandler {
         recordDto.setPetServiceDto(petServiceDto);
         recordMap.put(data, recordDto);
 
-        LogUtils.getServiceLog(userName, petServiceDto);
+        log.info(LogMessageUtils.getServiceLogMessage(userName, petServiceDto));
 
         SendMessage sendMessage = new SendMessage(chatId, String.format(BotMessageEnum.SERVICE.getMessage(),
                 petServiceDto.getName(), petServiceDto.getCost()));
@@ -119,7 +121,7 @@ public class CallbackQueryHandler {
         RecordDto recordDto = recordMap.get(userName);
         recordDto.setPetServiceDto(petServiceDto);
         recordMap.put(data, recordDto);
-        LogUtils.getServiceLog(userName, petServiceDto);
+        log.info(LogMessageUtils.getServiceLogMessage(userName, petServiceDto));
 
         SendMessage sendMessage = new SendMessage(chatId, String.format(BotMessageEnum.SERVICE.getMessage(),
                 petServiceDto.getName(), petServiceDto.getCost()));
@@ -136,7 +138,7 @@ public class CallbackQueryHandler {
         recordDto.setMasterDto(masterDto);
         recordMap.put(data, recordDto);
 
-        LogUtils.getMasterLog(userName, masterDto);
+        log.info(LogMessageUtils.getMasterLogMessage(userName, masterDto));
 
         SendMessage sendMessage = new SendMessage(chatId, String.format(BotMessageEnum.MASTER.getMessage(),
                 masterDto.getName(), masterDto.getLevel()));
@@ -155,7 +157,7 @@ public class CallbackQueryHandler {
 
         Long masterId = recordDto.getMasterDto().getId();
 
-        LogUtils.getDateLog(userName, calendarDto);
+        log.info(LogMessageUtils.getDateLogMessage(userName, calendarDto));
 
         SendMessage sendMessage = new SendMessage();
         sendMessage.setChatId(chatId);
@@ -175,7 +177,7 @@ public class CallbackQueryHandler {
         recordDto.setTiming(data);
         recordMap.put(data, recordDto);
 
-        LogUtils.getTimeLog(userName, recordDto);
+        log.info(LogMessageUtils.getTimeLogMessage(userName, recordDto));
 
         SendMessage sendMessage = new SendMessage(chatId,
                 String.format(BotMessageEnum.RECORD.getMessage(),

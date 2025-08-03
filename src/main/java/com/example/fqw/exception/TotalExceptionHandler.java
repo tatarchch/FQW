@@ -2,7 +2,7 @@ package com.example.fqw.exception;
 
 import com.example.fqw.enums.ClassNameForSaveExceptionHandler;
 import com.example.fqw.enums.SaveErrorEnum;
-import com.example.fqw.utils.LogUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,68 +12,69 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.HandlerMethod;
 
 @RestControllerAdvice
+@Slf4j
 public class TotalExceptionHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseError handleCalendarNotFoundDateException(UsernameNotFoundException exception) {
-        LogUtils.getErrorLogForExceptionHandler(exception);
+        log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseError handleCalendarNotFoundDateException(CalendarNotFoundException exception) {
-        LogUtils.getErrorLogForExceptionHandler(exception);
+        log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseError handleClientNotFoundException(ClientNotFoundException exception) {
-        LogUtils.getErrorLogForExceptionHandler(exception);
+        log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseError handleClientAlreadyExsistsException(ClientAlreadyExistsException exception) {
-        LogUtils.getErrorLogForExceptionHandler(exception);
+        log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
     public ResponseError handleMasterAlreadyExistsException(MasterAlreadyExistsException exception) {
-        LogUtils.getErrorLogForExceptionHandler(exception);
+        log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseError handleMasterNotFoundException(MasterNotFoundException exception) {
-        LogUtils.getErrorLogForExceptionHandler(exception);
+        log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseError handlePlaceNotfoundException(PlaceNotFoundException exception) {
-        LogUtils.getErrorLogForExceptionHandler(exception);
+        log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ResponseError handleRecordException(RecordException exception) {
-        LogUtils.getErrorLogForExceptionHandler(exception);
+        log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseError handleClientOtherException(OtherException exception) {
-        LogUtils.getErrorLogForExceptionHandler(exception);
+        log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }
 
@@ -82,7 +83,7 @@ public class TotalExceptionHandler {
     public ResponseError handleSaveException(DataIntegrityViolationException exception, HandlerMethod handlerMethod) {
         ClassNameForSaveExceptionHandler className = ClassNameForSaveExceptionHandler.getByValue(handlerMethod.getBeanType().getSimpleName());
 
-        LogUtils.getErrorLogForExceptionHandler(exception);
+        log.error(exception.getMessage(), exception);
 
         return switch (className) {
             case CLIENT_CONTROLLER -> new ResponseError(SaveErrorEnum.CLIENT.getMessage());
