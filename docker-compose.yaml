@@ -10,42 +10,22 @@ services:
         condition: service_healthy
       kafka:
         condition: service_healthy
+      elasticsearch:
+        condition: service_healthy
     environment:
       TZ: ${TZ}
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
-
       JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8 -Duser.language=ru -Duser.country=RU
-
     ports:
-      - 8181:8181
+      - "8181:8181"
     healthcheck:
       test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8181/actuator/health || exit 1" ]
       interval: 30s
       timeout: 30s
       retries: 3
       start_period: 60s
-
-  front:
-    container_name: fwq_front
-    image: front
-    build:
-      context: ../frontForFqw
-    ports:
-      - 5173:5173
-    depends_on:
-      fqw:
-        condition: service_healthy
-    volumes:
-      - ../frontForFqw:/app
-      - /app/node_modules
-    restart: unless-stopped
-    healthcheck:
-      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:5173/actuator/health || exit 1" ]
-      interval: 10s
-      timeout: 5s
-      retries: 3
 
   notification:
     container_name: fqw_notification
@@ -59,13 +39,12 @@ services:
       TZ: ${TZ}
       JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8 -Duser.language=ru -Duser.country=RU
     ports:
-      - 8282:8282
+      - "8282:8282"
     healthcheck:
       test: [ "CMD-SHELL", "curl -f http://localhost:8282/actuator/health || exit 1" ]
       interval: 30s
       timeout: 5s
       retries: 3
-
 
   db:
     container_name: fwq_postgres
@@ -77,7 +56,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     ports:
-      - 5432:5432
+      - "5432:5432"
     healthcheck:
       test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
       interval: 10s
@@ -86,30 +65,78 @@ services:
 
   kafka:
     container_name: fqw_kafka
-    image: bitnami/kafka:latest
-    ports:
-      - 29092:29092
+    image: bitnami/kafka
     environment:
       KAFKA_ENABLE_KRAFT: "yes"
       KAFKA_CFG_PROCESS_ROLES: "controller, broker"
       KAFKA_CFG_NODE_ID: 1
-
       KAFKA_CFG_CONTROLLER_QUORUM_VOTERS: "1@kafka:9093"
-
       KAFKA_CFG_CONTROLLER_LISTENER_NAMES: "CONTROLLER"
       KAFKA_CFG_LISTENERS: "PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:29092"
       KAFKA_CFG_ADVERTISED_LISTENERS: "PLAINTEXT://kafka:9092, EXTERNAL://localhost:29092"
-
       KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP: "CONTROLLER:PLAINTEXT, PLAINTEXT:PLAINTEXT, EXTERNAL:PLAINTEXT"
       KAFKA_CFG_INTER_BROKER_LISTENER_NAME: "PLAINTEXT"
-
       KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_CFG_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_CFG_NUM_PARTITIONS: 2
-
       TZ: ${TZ}
+    ports:
+      - "29092:29092"
     healthcheck:
       test: [ "CMD-SHELL", "kafka-topics.sh --list --bootstrap-server kafka:9092" ]
       interval: 10s
       timeout: 5s
       retries: 3
+
+  elasticsearch:
+    image: elasticsearch:9.0.2
+    container_name: elasticsearch
+    environment:
+      discovery.type: single-node
+      ES_JAVA_OPTS: -Xms1g -Xmx1g
+      xpack.security.enabled: false
+      TZ: Europe/Moscow
+    ports:
+      - "9200:9200"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:9200 || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  kibana:
+    image: kibana:9.0.2
+    container_name: kibana
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      SERVER_HOST: 0.0.0.0
+      monitoring.ui.container.elasticsearch.enabled: true
+      TZ: Europe/Moscow
+    ports:
+      - "5601:5601"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://127.0.0.1:5601/api/status || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
+
+  logstash:
+    image: logstash:9.0.2
+    container_name: logstash
+    environment:
+      ELASTICSEARCH_HOSTS: http://elasticsearch:9200
+      LS_JAVA_OPTS: -Xmx512m -Xms512m
+      SERVER_HOST: 0.0.0.0
+      TZ: Europe/Moscow
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline
+    ports:
+      - "5000:5000"
+      - "5001:5001"
+      - "9600:9600"
+    depends_on:
+      elasticsearch:
+        condition: service_healthy
