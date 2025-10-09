@@ -6,6 +6,9 @@ import com.example.fqw.exception.PlaceNotFoundException;
 import com.example.fqw.mapper.PlaceMapper;
 import com.example.fqw.repositories.PlaceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,12 +27,21 @@ public class PlaceService {
                 .toList();
     }
 
+    @Cacheable(value = "place"/*, key = "place.id", unless = "#result == null"*/)
     public PlaceDto getPlaceById(Long id) {
         return placeRepository.findById(id)
                 .map(placeMapper::toDTO)
                 .orElseThrow(() -> new PlaceNotFoundException(id));
     }
 
+    @Cacheable(value = "place"/*, key = "#place.id", unless = "#result == null"*/)
+    public PlaceDto getPlaceByName(String name) {
+        return placeRepository.findPlaceByName(name)
+                .map(placeMapper::toDTO)
+                .orElseThrow(() -> new PlaceNotFoundException(name));
+    }
+
+    @CachePut(value = "place"/*, key = "#place.id"*/)
     public PlaceDto addNew(PlaceDto placeDto) {
         return Optional.of(placeDto)
                 .map(placeMapper::toEntity)
@@ -38,12 +50,7 @@ public class PlaceService {
                 .orElseThrow(() -> new PlaceAlreadyExistsException(placeDto));
     }
 
-    public PlaceDto getPlaceByName(String name) {
-        return placeRepository.findPlaceByName(name)
-                .map(placeMapper::toDTO)
-                .orElseThrow(() -> new PlaceNotFoundException(name));
-    }
-
+    @CacheEvict(value = "place"/*, key = "#place.id"*/)
     public void deletePlaceById(Long id) {
         placeRepository.deleteById(id);
     }

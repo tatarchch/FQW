@@ -6,6 +6,8 @@ import com.example.fqw.exception.OtherException;
 import com.example.fqw.mapper.ClientMapper;
 import com.example.fqw.repositories.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +22,15 @@ public class AdminService {
     private final ClientMapper clientMapper;
     private final PasswordEncoder encoder;
 
+
+    @Cacheable(value = "admin")
     public List<ClientDto> getAllAdmins() {
         return clientRepository.findAllByRole(RolesEnum.ADMIN.getRole()).stream()
                 .map(clientMapper::toDTO)
                 .toList();
     }
 
+    @CachePut(value = "admin")
     public ClientDto addNewAdmin(ClientDto clientDto) {
         return Optional.of(clientDto)
                 .map(dto -> {

@@ -11,6 +11,10 @@ import com.example.fqw.repositories.MasterRepository;
 import com.example.fqw.repositories.PetServiceRepository;
 import com.example.fqw.repositories.PlaceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,12 +35,14 @@ public class MasterService {
                 .toList();
     }
 
+    @Cacheable(value = "master", key = "#id", unless = "#result == null")
     public MasterDto getMasterById(Long id) {
         return masterRepository.findById(id)
                 .map(masterMapper::toDTO)
                 .orElseThrow(() -> new MasterNotFoundException(id));
     }
 
+    @Cacheable(value = "master", key = "#name", unless = "#result == null")
     public MasterDto getMasterByName(String name) {
         return masterRepository.findMasterByName(name)
                 .map(masterMapper::toDTO)
@@ -67,6 +73,12 @@ public class MasterService {
                 .orElseThrow(() -> new PlaceNotFoundException(placeId));
     }
 
+    @Caching(
+            put = {
+                    @CachePut(value = "master", key = "#result.id"),
+                    @CachePut(value = "master", key = "#result.name")
+            }
+    )
     public MasterDto addNewMaster(MasterDto masterDto) {
         return Optional.of(masterDto)
                 .map(masterMapper::toEntity)
@@ -75,6 +87,12 @@ public class MasterService {
                 .orElseThrow(() -> new MasterAlreadyExistsException(masterDto));
     }
 
+    @Caching(
+            evict = {
+                    @CacheEvict(value = "master", key = "#id"),
+                    @CacheEvict(value = "master", key = "#result.name")
+            }
+    )
     public MasterDto inactivateMasterById(Long id) {
         return masterRepository.findById(id)
                 .map(masterMapper::inactivateMaster)
