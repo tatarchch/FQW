@@ -17,7 +17,7 @@ public class TotalExceptionHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseError handleCalendarNotFoundDateException(UsernameNotFoundException exception) {
+    public ResponseError handleUsernameNotFoundDateException(UsernameNotFoundException exception) {
         log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }

@@ -35,7 +35,7 @@ public class CallbackQueryHandler {
     InlineKeyboardService inlineKeyboardService;
     ReplyKeyboardService replyKeyboardService;
 
-    public SendMessage answerCallbackQuery(CallbackQuery buttonQuery, Map<String, RecordDto> recordMap) {
+    /*public SendMessage answerCallbackQuery(CallbackQuery buttonQuery, Map<String, RecordDto> recordMap) {
         String userName = buttonQuery.getFrom().getUserName();
         String chatId = String.valueOf(buttonQuery.getMessage().getChatId());
         String[] queryData = buttonQuery.getData().split("/");
@@ -62,6 +62,44 @@ public class CallbackQueryHandler {
             }
         }
         return sendMessage;
+    }*/
+
+    public SendMessage answerCallbackQuery(CallbackQuery buttonQuery, Map<String, RecordDto> recordMap) {
+        String userName = buttonQuery.getFrom().getUserName();
+        String chatId = String.valueOf(buttonQuery.getMessage().getChatId());
+        String[] queryData = buttonQuery.getData().split("/");
+
+        ButtonNameEnum command = ButtonNameEnum.valueOf(queryData[0]);
+        String data = queryData[1];
+
+        switch (command) {
+            case GET_PLACE -> {
+                return this.getPlaceAnswer(chatId, userName, data, recordMap);
+            }
+            case GET_MASTER -> {
+                return this.getMasterAnswer(chatId, userName, data, recordMap);
+            }
+            case GET_SERVICE_BY_MASTER -> {
+                return this.getServiceWithMasterAnswer(chatId, userName, data, recordMap);
+            }
+            case GET_SERVICE -> {
+                return this.getServiceAnswer(chatId, userName, data, recordMap);
+            }
+            case GET_MASTER_BY_SERVICE -> {
+                return this.getMasterWithServiceAnswer(chatId, userName, data, recordMap);
+            }
+            case GET_DATE -> {
+                return this.getDateAnswer(chatId, userName, data, recordMap);
+            }
+            case GET_TIME -> {
+                return this.getTimingAnswer(chatId, userName, data, recordMap);
+            }
+            default -> {
+                SendMessage sendMessage = new SendMessage(chatId, BotMessageEnum.EXCEPTION_WHAT_THE_FUCK.getMessage());
+                log.error(LogMessageUtils.getErrorLogMessageForInlineKeyboard());
+                return sendMessage;
+            }
+        }
     }
 
     private SendMessage getPlaceAnswer(String chatId, String userName, String data, Map<String, RecordDto> recordMap) {

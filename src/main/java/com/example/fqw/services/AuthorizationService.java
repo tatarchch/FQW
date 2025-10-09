@@ -15,7 +15,7 @@ public class AuthorizationService {
     private final ClientRepository clientRepository;
     private final PasswordEncoder encoder;
 
-    public UsernamePasswordAuthenticationToken authentication(String login, String password) { //pass s fronta
+    public UsernamePasswordAuthenticationToken authentication(String login, String password) { //pass from front
         return clientRepository.findClientByLogin(login)
                 .filter(client -> encoder.matches(password, client.getPassword()))
                 .map(client -> User.builder().username(client.getLogin()).password(client.getPassword()).roles(client.getRole()).build())
