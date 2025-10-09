@@ -9,6 +9,8 @@ import com.example.fqw.mapper.PetServiceMapper;
 import com.example.fqw.repositories.MasterRepository;
 import com.example.fqw.repositories.PetServiceRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,6 +31,7 @@ public class PetServiceService {
                 .toList();
     }
 
+    @Cacheable(value = "service", key = "#id", unless = "#result == null")
     public PetServiceDto getServiceById(Long id) {
         return petServiceRepository.findById(id)
                 .map(petServiceMapper::toDTO)
@@ -59,6 +62,7 @@ public class PetServiceService {
                 .orElseThrow(OtherException::new);
     }
 
+    @CacheEvict(value = "service", key = "#id")
     public void deleteServiceById(Long id) {
         petServiceRepository.deleteById(id);
     }
