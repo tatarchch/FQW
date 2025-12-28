@@ -1,4 +1,4 @@
-package com.example.fqw.service;
+package com.example.fqw.integration;
 
 import com.example.fqw.dto.PetServiceDto;
 import com.example.fqw.entity.PetService;

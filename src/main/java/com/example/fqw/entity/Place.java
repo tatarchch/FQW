@@ -15,7 +15,13 @@ import java.util.List;
 @Table(name = "place", schema = "prod")
 public class Place {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "place_seq")
+    @SequenceGenerator(
+            name = "place_seq",
+            sequenceName = "place_seq",
+            schema = "prod",
+            allocationSize = 1
+    )
     @Column(name = "id", nullable = false)
     private Long id;
 

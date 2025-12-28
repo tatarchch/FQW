@@ -16,7 +16,13 @@ import java.util.List;
 @Table(name = "calendar", schema = "prod")
 public class Calendar {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "calendar_seq")
+    @SequenceGenerator(
+            name = "calendar_seq",
+            sequenceName = "calendar_seq",
+            schema = "prod",
+            allocationSize = 1
+    )
     @Column(name = "id", nullable = false)
     private Long id;
 

@@ -21,13 +21,13 @@ public class PetServiceControllerImpl implements PetServiceControllerInterface {
     }
 
     @Override
-    public List<PetServiceDto> getServicesByMasterId(Long masterLevel) {
+    public List<PetServiceDto> getServicesByMasterLevel(Long masterLevel) {
         return petServiceService.getServicesByMasterId(masterLevel);
     }
 
     @Override
-    public PetServiceDto getServiceById(Long id) {
-        return petServiceService.getServiceById(id);
+    public PetServiceDto getServiceById(Long serviceId) {
+        return petServiceService.getServiceById(serviceId);
     }
 
     @Override
@@ -36,8 +36,8 @@ public class PetServiceControllerImpl implements PetServiceControllerInterface {
     }
 
     @Override
-    public void deleteServiceById(Long id) {
-        petServiceService.deleteServiceById(id);
+    public void deleteServiceById(Long serviceId) {
+        petServiceService.deleteServiceById(serviceId);
     }
 
 }

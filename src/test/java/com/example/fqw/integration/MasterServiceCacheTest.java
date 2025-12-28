@@ -1,4 +1,4 @@
-package com.example.fqw.service;
+package com.example.fqw.integration;
 
 import com.example.fqw.dto.MasterDto;
 import com.example.fqw.entity.Master;
@@ -40,7 +40,7 @@ class MasterServiceCacheTest {
 
     @Test
     void getMasterByIdCacheTest() {
-        Master master = this.createMaster(null, "test", 1, null);
+        Master master = this.createMaster(null, "test1", 1, null);
         log.info("Created master");
 
         var id = master.getId();
@@ -81,7 +81,7 @@ class MasterServiceCacheTest {
 
     @Test
     void getMasterByIdCacheTestForAnyMaster() {
-        Master master = this.createMaster(null, "test", 1, null);
+        Master master = this.createMaster(null, "test2", 1, null);
         log.info("Created master");
 
         var id = master.getId();
@@ -153,7 +153,7 @@ class MasterServiceCacheTest {
 
     @Test
     void addNewMasterCacheTest() {
-        MasterDto masterDto = this.createMasterDto(null, "test", 1);
+        MasterDto masterDto = this.createMasterDto(null, "test3", 1);
 
         MasterDto savedMaster = service.addNewMaster(masterDto);
         log.info("Added new master");
@@ -188,7 +188,7 @@ class MasterServiceCacheTest {
     @Test
     void inactivateMasterByIdCacheTest() {
 
-        MasterDto masterDto = this.createMasterDto(null, "test", 1);
+        MasterDto masterDto = this.createMasterDto(null, "test4", 1);
 
         MasterDto savedMaster = service.addNewMaster(masterDto);
         log.info("Added new master to bd and cache");

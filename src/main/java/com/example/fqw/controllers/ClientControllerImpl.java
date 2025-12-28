@@ -31,12 +31,12 @@ public class ClientControllerImpl implements ClientControllerInterface {
     }
 
     @Override
-    public ClientDto getClientById(Long id) {
-        return clientService.getClientById(id);
+    public ClientDto getClientById(Long clientId) {
+        return clientService.getClientById(clientId);
     }
 
     @Override
-    public ClientDto getClientByLogin(String login) {
+    public ClientDto getClientByLogin(String login)  {
         return clientService.getClientByLogin(login);
     }
 

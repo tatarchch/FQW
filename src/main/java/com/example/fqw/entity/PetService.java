@@ -15,7 +15,13 @@ import java.util.List;
 @Table(name = "pet_service", schema = "prod")
 public class PetService {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "service_seq")
+    @SequenceGenerator(
+            name = "service_seq",
+            sequenceName = "service_seq",
+            schema = "prod",
+            allocationSize = 1
+    )
     @Column(name = "id", nullable = false)
     private Long id;
 

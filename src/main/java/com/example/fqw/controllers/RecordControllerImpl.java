@@ -22,8 +22,8 @@ public class RecordControllerImpl implements RecordControllerInterface {
     }
 
     @Override
-    public RecordDto getRecordById(Long id) {
-        return recordService.getById(id);
+    public RecordDto getRecordById(Long recordId) {
+        return recordService.getById(recordId);
     }
 
     @Override

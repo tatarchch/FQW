@@ -15,7 +15,7 @@ public class RedisConfig {
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig()
-                .disableCachingNullValues()
+                //.disableCachingNullValues()
                 .serializeKeysWith
                         (RedisSerializationContext.SerializationPair
                                 .fromSerializer(new StringRedisSerializer()))

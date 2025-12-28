@@ -14,7 +14,13 @@ import java.time.LocalDate;
 @Table(name = "record", schema = "prod")
 public class Record {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "record_seq")
+    @SequenceGenerator(
+            name = "record_seq",
+            sequenceName = "record_seq",
+            schema = "prod",
+            allocationSize = 1
+    )
     @Column(name = "id", nullable = false)
     private Long id;
 

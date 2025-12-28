@@ -21,7 +21,7 @@ public class MasterControllerImpl implements MasterControllerInterface {
     }
 
     @Override
-    public List<MasterDto> getMastersByPlaceIdAndServiceLevel(Long placeId, Long serviceId) {
+    public List<MasterDto> getMastersByPlaceIdAndServiceId(Long placeId, Long serviceId) {
         return masterService.getMastersByPlaceIdAndServiceId(placeId, serviceId);
     }
 
