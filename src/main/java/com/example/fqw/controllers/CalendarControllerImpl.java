@@ -47,8 +47,8 @@ public class CalendarControllerImpl implements CalendarControllerInterface {
     }
 
     @Override
-    public CalendarDto addCalendarData(List<Long> mastersId, Long id) {
-        return calendarService.addCalendar(mastersId, id);
+    public CalendarDto addCalendarData(List<Long> mastersId, Long calendarId) {
+        return calendarService.addCalendar(mastersId, calendarId);
     }
 
 }

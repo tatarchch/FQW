@@ -1,3 +1,4 @@
+version: '3.8'
 services:
 
   fqw:
@@ -12,6 +13,8 @@ services:
         condition: service_healthy
       elasticsearch:
         condition: service_healthy
+      logstash:
+        condition: service_healthy
       redis:
         condition: service_healthy
     environment:
@@ -19,6 +22,10 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/${DB_NAME}
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
+      bot.token: ${BOT_TOKEN}
+      #SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8 -Duser.language=ru -Duser.country=RU
     ports:
       - "8181:8181"
@@ -36,6 +43,8 @@ services:
       context: ../notificationService
     depends_on:
       kafka:
+        condition: service_healthy
+      logstash:
         condition: service_healthy
     environment:
       TZ: ${TZ}
@@ -73,7 +82,7 @@ services:
     environment:
       TZ: ${TZ}
     healthcheck:
-      test: [ "CMD", "redis-cli", "-a", "ping" ]
+      test: [ "CMD", "redis-cli", "ping" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -98,7 +107,7 @@ services:
     ports:
       - "29092:29092"
     healthcheck:
-      test: [ "CMD-SHELL", "kafka-topics.sh --list --bootstrap-server kafka:9092" ]
+      test: ["CMD-SHELL", "kafka-broker-api-versions.sh --bootstrap-server kafka:9092 || exit 1"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -114,7 +123,7 @@ services:
     ports:
       - "9200:9200"
     healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://localhost:9200 || exit 1" ]
+      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q '\"status\":\"green\"' || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -152,6 +161,12 @@ services:
       - "5000:5000"
       - "5001:5001"
       - "9600:9600"
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://localhost:9600/_node/stats || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
     depends_on:
       elasticsearch:
         condition: service_healthy

@@ -13,11 +13,17 @@ import java.util.List;
 @Table(name = "master", schema = "prod")
 public class Master {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "master_seq")
+    @SequenceGenerator(
+            name = "master_seq",
+            sequenceName = "master_seq",
+            schema = "prod",
+            allocationSize = 1
+    )
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "level", nullable = false)

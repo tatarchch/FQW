@@ -26,13 +26,13 @@ public class PlaceControllerImpl implements PlaceControllerInterface {
     }
 
     @Override
-    public PlaceDto getPlaceById(Long id) {
-        return placeService.getPlaceById(id);
+    public PlaceDto getPlaceById(Long placeId) {
+        return placeService.getPlaceById(placeId);
     }
 
     @Override
-    public void deletePlaceById(Long id) {
-        placeService.deletePlaceById(id);
+    public void deletePlaceById(Long placeId) {
+        placeService.deletePlaceById(placeId);
     }
 
 }

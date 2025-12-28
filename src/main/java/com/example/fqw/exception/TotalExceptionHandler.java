@@ -2,14 +2,21 @@ package com.example.fqw.exception;
 
 import com.example.fqw.enums.ClassNameForSaveExceptionHandler;
 import com.example.fqw.enums.SaveErrorEnum;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.HandlerMethod;
+
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @Slf4j
@@ -37,14 +44,14 @@ public class TotalExceptionHandler {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.CONFLICT)
-    public ResponseError handleClientAlreadyExsistsException(ClientAlreadyExistsException exception) {
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseError handleClientAlreadyExistsException(ClientAlreadyExistsException exception) {
         log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseError handleMasterAlreadyExistsException(MasterAlreadyExistsException exception) {
         log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
@@ -59,7 +66,7 @@ public class TotalExceptionHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseError handlePlaceNotfoundException(PlaceNotFoundException exception) {
+    public ResponseError handlePlaceNotFoundException(PlaceNotFoundException exception) {
         log.error(exception.getMessage(), exception);
         return new ResponseError(exception.getMessage());
     }
@@ -78,8 +85,38 @@ public class TotalExceptionHandler {
         return new ResponseError(exception.getMessage());
     }
 
+    //@Validated
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseError handleConstraintViolationException(ConstraintViolationException exception) {
+        log.error(exception.getMessage(), exception);
+
+        String response = exception.getConstraintViolations().stream()
+                .map(ConstraintViolation::getMessage)
+                .filter(Objects::nonNull)
+                .map(String::trim)
+                .collect(Collectors.joining(", "));
+
+        return new ResponseError(response);
+    }
+
+    //@Valid
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseError handleValidationExceptions(MethodArgumentNotValidException exception) {
+        log.error(exception.getMessage(), exception);
+        String responseError = exception.getFieldErrors().stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .filter(Objects::nonNull)
+                .map(String::trim)
+                .collect(Collectors.joining(", "));
+
+        return new ResponseError(responseError);
+    }
+
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseError handleSaveException(DataIntegrityViolationException exception, HandlerMethod handlerMethod) {
         ClassNameForSaveExceptionHandler className = ClassNameForSaveExceptionHandler.getByValue(handlerMethod.getBeanType().getSimpleName());
 
