@@ -82,7 +82,7 @@ services:
     environment:
       TZ: ${TZ}
     healthcheck:
-      test: [ "CMD", "redis-cli", "ping" ]
+      test: [ "CMD-SHELL", "redis-cli ping" ]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -107,7 +107,7 @@ services:
     ports:
       - "29092:29092"
     healthcheck:
-      test: ["CMD", "/opt/kafka/bin/kafka-cluster.sh", "cluster-id", "--bootstrap-server", "localhost:29092"]
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-topics.sh --bootstrap-server localhost:29092 --list"]
       interval: 10s
       timeout: 5s
       retries: 3
@@ -123,7 +123,7 @@ services:
     ports:
       - "9200:9200"
     healthcheck:
-      test: ["CMD-SHELL", "curl -s http://localhost:9200/_cluster/health | grep -q '\"status\":\"green\"' || exit 1"]
+      test: ["CMD-SHELL", "curl -f 'http://localhost:9200/_cluster/health?wait_for_status=yellow&timeout=5s'"]
       interval: 10s
       timeout: 5s
       retries: 3
